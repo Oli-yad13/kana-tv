@@ -35,7 +35,7 @@ export default function ContactForm() {
       await new Promise((r) => setTimeout(r, 800));
       setSubmitted("ok");
       setPayload({ name: "", email: "", subject: "", message: "" });
-    } catch (err) {
+    } catch {
       setSubmitted("err");
     } finally {
       setSubmitting(false);
@@ -56,6 +56,7 @@ export default function ContactForm() {
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <input
+          key="name"
           className={inputBase}
           type="text"
           name="name"
@@ -65,6 +66,7 @@ export default function ContactForm() {
           required
         />
         <input
+          key="email"
           className={inputBase}
           type="email"
           name="email"
@@ -75,6 +77,7 @@ export default function ContactForm() {
         />
       </div>
       <input
+        key="subject"
         className={inputBase}
         type="text"
         name="subject"
@@ -83,6 +86,7 @@ export default function ContactForm() {
         onChange={handleChange}
       />
       <textarea
+        key="message"
         className={inputBase}
         name="message"
         rows={6}
