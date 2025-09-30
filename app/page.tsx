@@ -1,13 +1,13 @@
-import Navbar from '@/components/Navbar'
+import Header from '@/components/Header'
 import Hero from '@/components/Hero'
-import Marquee from '@/components/Marquee'
+import TrendingMarquee from '@/components/TrendingMarquee'
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-white">
-      <Navbar />
+      <Header />
       <Hero />
-      <Marquee />
+      <TrendingMarquee />
     </main>
   )
 }

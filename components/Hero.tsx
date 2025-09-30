@@ -1,29 +1,32 @@
 export default function Hero() {
   return (
-    <section className="relative h-screen w-full overflow-hidden">
-      {/* Hero Image */}
+    <section className="relative h-screen w-full overflow-hidden mt-[1px]">
+      {/* Hero Image - First page of PDF */}
       <div className="absolute inset-0">
         <img
-          src="/9.jpg"
-          alt="Kana TV Hero"
+          src="/hero-page-1.jpg"
+          alt="Kana TV 2025 Programming"
           className="w-full h-full object-cover"
         />
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-transparent"></div>
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60"></div>
       </div>
 
       {/* Hero Content */}
-      <div className="relative z-10 h-full flex items-center justify-center">
-        <div className="text-center text-white px-4">
-          <h1 className="text-6xl md:text-8xl font-black tracking-tight mb-6">
-            KANA TV
+      <div className="relative z-10 h-full flex flex-col items-center justify-center px-4">
+        <div className="text-center text-white max-w-6xl">
+          <h1 className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-none mb-8 drop-shadow-2xl">
+            KANA
           </h1>
-          <p className="text-xl md:text-3xl font-light mb-8">
-            Ethiopia's #1 Entertainment Channel
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight mb-6 drop-shadow-2xl">
+            CONTENT
+          </h2>
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight mb-12 drop-shadow-2xl">
+            UNIVERSE
+          </h2>
+          <p className="text-lg md:text-2xl lg:text-3xl font-light tracking-wide drop-shadow-lg max-w-4xl mx-auto">
+            ETHIOPIA'S ONLY FULL-SPECTRUM TV — WHERE WE ENTERTAIN, ENGAGE, INSPIRE
           </p>
-          <button className="bg-pink-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-pink-700 transition-colors">
-            Explore Shows
-          </button>
         </div>
       </div>
     </section>
