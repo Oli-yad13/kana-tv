@@ -66,8 +66,8 @@ export default function ShowsClient({ shows }: { shows: ShowMeta[] }) {
         </div>
       </section>
 
-      {/* Grid */}
-      <section className="relative px-6 sm:px-10 lg:px-16 py-10">
+      {/* Full-screen grid */}
+      <section className="relative px-0 py-0">
         <div className="absolute inset-0 -z-10">
           <div className="relative w-full h-full">
             <div className="absolute inset-0 opacity-15">
@@ -75,9 +75,9 @@ export default function ShowsClient({ shows }: { shows: ShowMeta[] }) {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+        <div className="flex flex-col">
           {filtered.map((show) => (
-            <ShowCard key={show.id} show={show} />
+            <ShowCard key={show.id} show={show} fullScreen />
           ))}
         </div>
         {filtered.length === 0 && (
