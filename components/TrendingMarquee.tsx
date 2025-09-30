@@ -1,14 +1,15 @@
-'use client'
+"use client";
 
-import React, { useEffect, useState } from "react"
-import { motion } from "framer-motion"
-import { cn } from "@/lib/utils"
-import SimpleMarquee from "./simple-marquee"
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { cn } from "@/lib/utils";
+import SimpleMarquee from "./simple-marquee";
 
 interface Show {
-  coverArt: string
-  title: string
-  genre: string
+  coverArt: string;
+  title: string;
+  genre: string;
 }
 
 const shows: Show[] = [
@@ -42,60 +43,79 @@ const shows: Show[] = [
     title: "Kana Jams",
     genre: "Music",
   },
-]
+];
 
 export default function TrendingMarquee() {
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(false)
-  }, [])
+    setLoading(false);
+  }, []);
 
-  const firstRow = React.useMemo(() => shows.slice(0, Math.floor(shows.length / 2)), [])
-  const secondRow = React.useMemo(() => shows.slice(Math.floor(shows.length / 2)), [])
+  const firstRow = React.useMemo(
+    () => shows.slice(0, Math.floor(shows.length / 2)),
+    []
+  );
+  const secondRow = React.useMemo(
+    () => shows.slice(Math.floor(shows.length / 2)),
+    []
+  );
 
-  const variants = React.useMemo(() => ({
-    initial: {
-      y: "0px",
-      x: "0px",
-      scale: 1,
-      opacity: 1,
-    },
-    hover: {
-      y: "-12px",
-      x: "-12px",
-      scale: 1.05,
-    },
-  }), [])
+  const variants = React.useMemo(
+    () => ({
+      initial: {
+        y: "0px",
+        x: "0px",
+        scale: 1,
+        opacity: 1,
+      },
+      hover: {
+        y: "-12px",
+        x: "-12px",
+        scale: 1.05,
+      },
+    }),
+    []
+  );
 
-  const textVariants = React.useMemo(() => ({
-    initial: { opacity: 0 },
-    hover: {
-      opacity: 1,
-    },
-  }), [])
+  const textVariants = React.useMemo(
+    () => ({
+      initial: { opacity: 0 },
+      hover: {
+        opacity: 1,
+      },
+    }),
+    []
+  );
 
-  const imageVariants = React.useMemo(() => ({
-    initial: { opacity: 1 },
-    hover: {
-      opacity: 0.45,
-    },
-  }), [])
+  const imageVariants = React.useMemo(
+    () => ({
+      initial: { opacity: 1 },
+      hover: {
+        opacity: 0.45,
+      },
+    }),
+    []
+  );
 
-  const MarqueeItem = React.memo(function MarqueeItem({ show }: { show: Show }) {
+  const MarqueeItem = React.memo(function MarqueeItem({
+    show,
+  }: {
+    show: Show;
+  }) {
     const containerClasses = cn(
       "mx-1 sm:mx-1.5 md:mx-2 cursor-pointer",
       "h-48 w-48 sm:h-56 sm:w-56 md:h-64 md:w-64 lg:h-72 lg:w-72 xl:h-80 xl:w-80 2xl:h-96 2xl:w-96",
       "relative flex shadow-white/20 shadow-md",
       "overflow-hidden flex-col transform-gpu bg-black"
-    )
+    );
 
     const textContainerClasses = cn(
       "justify-end p-2 sm:p-2.5 md:p-3 h-full flex items-start flex-col",
       "leading-tight"
-    )
+    );
 
-    const imageClasses = cn("object-cover w-full h-full shadow-2xl absolute")
+    const imageClasses = cn("object-cover w-full h-full shadow-2xl absolute");
 
     return (
       <motion.div
@@ -120,19 +140,29 @@ export default function TrendingMarquee() {
           variants={imageVariants}
         />
       </motion.div>
-    )
-  })
+    );
+  });
 
   return (
-    <div className="flex w-full h-screen relative justify-center items-center flex-col bg-white overflow-hidden">
+    <div className="flex w-full h-screen relative justify-center items-center flex-col overflow-hidden">
+      {/* Background Image */}
+      <Image
+        src="/4.png"
+        alt="Background"
+        fill
+        className="object-cover z-0"
+        priority
+      />
+
       {loading ? (
-        <div className="text-black">Loading shows...</div>
+        <div className="text-white relative z-10">Loading shows...</div>
       ) : (
         <>
           <div
-            className="absolute h-1/2 sm:h-full w-[200%] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 justify-center items-center flex flex-col space-y-2 sm:space-y-3 md:space-y-4"
+            className="absolute h-1/2 sm:h-full w-[200%] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 justify-center items-center flex flex-col space-y-2 sm:space-y-3 md:space-y-4 z-10"
             style={{
-              transform: "rotateX(45deg) rotateY(-15deg) rotateZ(35deg) translateZ(-200px)",
+              transform:
+                "rotateX(45deg) rotateY(-15deg) rotateZ(35deg) translateZ(-200px)",
             }}
           >
             <SimpleMarquee
@@ -168,5 +198,5 @@ export default function TrendingMarquee() {
         </>
       )}
     </div>
-  )
+  );
 }
