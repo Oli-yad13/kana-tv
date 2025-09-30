@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { NAVIGATION_ITEMS } from "@/constants";
@@ -11,6 +12,7 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -66,19 +68,26 @@ export default function Header() {
 
           {/* Desktop Navigation - Centered */}
           <nav className="hidden lg:flex items-center space-x-8">
-            {NAVIGATION_ITEMS.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="relative group text-base font-medium text-white/80 hover:text-white transition-colors duration-300"
-              >
-                {item.name}
-                <span
-                  className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full"
-                  style={{ backgroundColor: "#A80563" }}
-                ></span>
-              </Link>
-            ))}
+            {NAVIGATION_ITEMS.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`relative group text-base font-medium transition-colors duration-300 ${
+                    isActive ? "text-white" : "text-white/80 hover:text-white"
+                  }`}
+                >
+                  {item.name}
+                  <span
+                    className={`absolute bottom-0 left-0 h-0.5 transition-all duration-300 ${
+                      isActive ? "w-full" : "w-0 group-hover:w-full"
+                    }`}
+                    style={{ backgroundColor: "#A80563" }}
+                  ></span>
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Right side - YouTube Link */}
@@ -138,20 +147,29 @@ export default function Header() {
               <div className="flex flex-col space-y-6">
                 {/* Mobile Navigation Links */}
                 <div className="flex flex-col space-y-4">
-                  {NAVIGATION_ITEMS.map((item) => (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      className="relative group text-xl font-medium text-white/80 hover:text-white transition-colors duration-300 text-left"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      {item.name}
-                      <span
-                        className="absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full"
-                        style={{ backgroundColor: "#A80563" }}
-                      ></span>
-                    </Link>
-                  ))}
+                  {NAVIGATION_ITEMS.map((item) => {
+                    const isActive = pathname === item.href;
+                    return (
+                      <Link
+                        key={item.name}
+                        href={item.href}
+                        className={`relative group text-xl font-medium transition-colors duration-300 text-left ${
+                          isActive
+                            ? "text-white"
+                            : "text-white/80 hover:text-white"
+                        }`}
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        {item.name}
+                        <span
+                          className={`absolute bottom-0 left-0 h-0.5 transition-all duration-300 ${
+                            isActive ? "w-full" : "w-0 group-hover:w-full"
+                          }`}
+                          style={{ backgroundColor: "#A80563" }}
+                        ></span>
+                      </Link>
+                    );
+                  })}
                 </div>
 
                 {/* Mobile YouTube Link */}

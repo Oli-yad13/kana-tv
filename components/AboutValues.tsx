@@ -44,7 +44,7 @@ const values = [
 export default function AboutValues() {
   return (
     <section className="px-6 sm:px-10 lg:px-16 py-12">
-      <div className="max-w-6xl mx-auto">
+      <div>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -55,7 +55,7 @@ export default function AboutValues() {
           <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-6">
             Our Core Values
           </h2>
-          <p className="text-white/80 leading-relaxed max-w-3xl mx-auto">
+          <p className="text-white/80 leading-relaxed max-w-3xl">
             The principles that guide our mission to deliver exceptional content
             and create meaningful connections with our audience
           </p>
@@ -116,7 +116,7 @@ export default function AboutValues() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="mt-12 text-center"
         >
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-4xl">
             <blockquote className="text-2xl md:text-3xl font-light text-white/90 italic leading-relaxed">
               "We are here to{" "}
               <span className="text-yellow-400 font-bold">entertain</span>. If
