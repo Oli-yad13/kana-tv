@@ -53,7 +53,7 @@ export default function Header() {
         <div className="flex h-16 items-center justify-between relative">
           {/* Logo - Left aligned */}
           <Link href="/" className="flex items-center group">
-            <div className="relative h-12 w-16 mr-3">
+            <div className="relative h-12 w-16">
               <Image
                 src="/Kana_TV.png"
                 alt="Kana TV Logo"
@@ -62,9 +62,6 @@ export default function Header() {
                 priority
               />
             </div>
-            <span className="text-3xl font-bold text-white custom-purple transition-colors duration-300">
-              KANA TV
-            </span>
           </Link>
 
           {/* Desktop Navigation - Centered */}
