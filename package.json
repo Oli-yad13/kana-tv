@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "sanity": "sanity dev",
-    "sanity:deploy": "sanity deploy"
+    "sanity:deploy": "sanity deploy",
+    "deploy:setup": "echo 'Run this after your first Vercel deployment:' && echo 'npx sanity cors add https://your-app-name.vercel.app --credentials' && echo 'npx sanity cors add https://your-app-name.vercel.app/studio --credentials'"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
