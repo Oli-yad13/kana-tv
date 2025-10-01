@@ -17,11 +17,11 @@ export default function AboutPage() {
       <Header />
       <AboutHero />
 
-      {/* Programming Pillars */}
-      <ProgrammingPillars />
-
       {/* Content Statistics */}
       <ContentStats />
+
+      {/* Programming Pillars */}
+      <ProgrammingPillars />
 
       {/* Digital Reach */}
       <DigitalReach />
