@@ -48,12 +48,13 @@ export function generateStaticParams() {
   return allShows.map((s) => ({ id: s.id }));
 }
 
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
-  params: { id: string };
-}): Metadata {
-  const show = allShows.find((s) => s.id === params.id);
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const show = allShows.find((s) => s.id === id);
   return {
     title: show ? `${show.title} | Kana TV` : "Show | Kana TV",
     description: show
@@ -62,8 +63,9 @@ export function generateMetadata({
   };
 }
 
-export default function ShowDetailPage({ params }: { params: { id: string } }) {
-  const show = allShows.find((s) => s.id === params.id);
+export default async function ShowDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const show = allShows.find((s) => s.id === id);
   if (!show) {
     return (
       <main className="min-h-screen bg-black text-white p-8">

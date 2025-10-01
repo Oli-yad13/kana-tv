@@ -8,9 +8,9 @@ import { urlFor } from "@/lib/sanity/client";
 import type { Post } from "@/types/blog";
 
 interface Props {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 async function getPost(slug: string): Promise<Post | null> {
@@ -112,7 +112,8 @@ export default async function BlogPostPage({ params }: Props) {
                 if (block._type === 'block') {
                   return (
                     <div key={index} className="mb-6">
-                      {block.children?.map((child, childIndex) => {
+                      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                      {block.children?.map((child: any, childIndex: number) => {
                         if (child._type === 'span') {
                           let element = child.text;
                           
