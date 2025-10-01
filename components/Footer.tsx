@@ -68,12 +68,7 @@ export default function Footer() {
       <div className="px-6 sm:px-10 lg:px-16 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Logo and Description */}
-          <motion.div
-            className="lg:col-span-2"
-            variants={sectionVariants}
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.2 }}
-          >
+          <motion.div className="lg:col-span-2" variants={sectionVariants}>
             <motion.div
               className="flex items-center gap-3 mb-4"
               variants={linkVariants}
@@ -93,6 +88,12 @@ export default function Footer() {
               <motion.h3
                 className="text-2xl font-bold text-white"
                 variants={linkVariants}
+                whileHover={{
+                  scale: 1.05,
+                  color: "#ec4899",
+                  textShadow: "0 0 20px rgba(236, 72, 153, 0.5)",
+                }}
+                transition={{ duration: 0.2 }}
               >
                 KANA TV
               </motion.h3>
@@ -100,6 +101,11 @@ export default function Footer() {
             <motion.p
               className="text-white/70 text-sm leading-relaxed max-w-md"
               variants={linkVariants}
+              whileHover={{
+                color: "rgba(255, 255, 255, 0.9)",
+                scale: 1.02,
+              }}
+              transition={{ duration: 0.2 }}
             >
               Ethiopia&apos;s only full-spectrum TV — where we entertain,
               engage, and inspire through compelling drama, variety shows, and
@@ -144,14 +150,16 @@ export default function Footer() {
           </motion.div>
 
           {/* Quick Links */}
-          <motion.div
-            variants={sectionVariants}
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.2 }}
-          >
+          <motion.div variants={sectionVariants}>
             <motion.h4
               className="text-white font-semibold mb-4"
               variants={linkVariants}
+              whileHover={{
+                scale: 1.05,
+                color: "#ec4899",
+                textShadow: "0 0 15px rgba(236, 72, 153, 0.4)",
+              }}
+              transition={{ duration: 0.2 }}
             >
               Quick Links
             </motion.h4>
@@ -173,32 +181,34 @@ export default function Footer() {
                 { href: "/about", text: "About Us" },
                 { href: "/contact", text: "Contact" },
               ].map((link) => (
-                <motion.li
-                  key={link.href}
-                  variants={linkVariants}
-                  whileHover={{ x: 10, scale: 1.05 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Link
-                    href={link.href}
-                    className="text-white/70 hover:text-white transition-all duration-300 text-sm block py-1 hover:bg-white/5 rounded px-2 -mx-2"
+                <motion.li key={link.href} variants={linkVariants}>
+                  <motion.div
+                    whileHover={{ x: 10, scale: 1.05 }}
+                    transition={{ duration: 0.2 }}
                   >
-                    {link.text}
-                  </Link>
+                    <Link
+                      href={link.href}
+                      className="text-white/70 hover:text-white transition-all duration-300 text-sm block py-1 hover:bg-white/5 rounded px-2 -mx-2"
+                    >
+                      {link.text}
+                    </Link>
+                  </motion.div>
                 </motion.li>
               ))}
             </motion.ul>
           </motion.div>
 
           {/* Contact Info */}
-          <motion.div
-            variants={sectionVariants}
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.2 }}
-          >
+          <motion.div variants={sectionVariants}>
             <motion.h4
               className="text-white font-semibold mb-4"
               variants={linkVariants}
+              whileHover={{
+                scale: 1.05,
+                color: "#ec4899",
+                textShadow: "0 0 15px rgba(236, 72, 153, 0.4)",
+              }}
+              transition={{ duration: 0.2 }}
             >
               Contact
             </motion.h4>
@@ -220,15 +230,18 @@ export default function Footer() {
                 "Partnerships: partners@kanatv.et",
                 "Addis Ababa, Ethiopia",
               ].map((contact) => (
-                <motion.li
-                  key={contact}
-                  variants={linkVariants}
-                  whileHover={{ x: 10, scale: 1.05 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <span className="block py-1 hover:bg-white/5 rounded px-2 -mx-2 transition-all duration-300 cursor-pointer">
+                <motion.li key={contact} variants={linkVariants}>
+                  <motion.span
+                    className="block py-1 hover:bg-white/5 rounded px-2 -mx-2 transition-all duration-300 cursor-pointer"
+                    whileHover={{
+                      x: 10,
+                      scale: 1.05,
+                      color: "rgba(255, 255, 255, 0.9)",
+                    }}
+                    transition={{ duration: 0.2 }}
+                  >
                     {contact}
-                  </span>
+                  </motion.span>
                 </motion.li>
               ))}
             </motion.ul>
@@ -246,7 +259,10 @@ export default function Footer() {
           >
             <motion.p
               className="text-white/60 text-sm"
-              whileHover={{ scale: 1.05 }}
+              whileHover={{
+                scale: 1.05,
+                color: "rgba(255, 255, 255, 0.8)",
+              }}
               transition={{ duration: 0.2 }}
             >
               © 2025 Kana TV. All rights reserved.
@@ -256,8 +272,12 @@ export default function Footer() {
               variants={linkVariants}
             >
               <motion.div
-                whileHover={{ scale: 1.05 }}
+                whileHover={{
+                  scale: 1.05,
+                  y: -2,
+                }}
                 whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.2 }}
               >
                 <Link
                   href="/privacy"
@@ -267,8 +287,12 @@ export default function Footer() {
                 </Link>
               </motion.div>
               <motion.div
-                whileHover={{ scale: 1.05 }}
+                whileHover={{
+                  scale: 1.05,
+                  y: -2,
+                }}
                 whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.2 }}
               >
                 <Link
                   href="/terms"

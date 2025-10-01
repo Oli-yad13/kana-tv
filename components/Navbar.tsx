@@ -41,7 +41,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center group">
-            <div className="relative h-10 w-12 mr-3">
+            <div className="relative h-15 w-18 mr-3">
               <Image
                 src="/Kana_TV.png"
                 alt="Kana TV Logo"
@@ -50,7 +50,10 @@ export default function Navbar() {
                 priority
               />
             </div>
-            <h1 className="text-3xl font-bold text-white custom-purple transition-colors duration-300">
+            <h1
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white custom-purple transition-colors duration-300 uppercase"
+              style={{ fontFamily: "Arial, sans-serif" }}
+            >
               KANA TV
             </h1>
           </Link>
@@ -61,7 +64,8 @@ export default function Navbar() {
               <Link
                 key={category.name}
                 href={category.href}
-                className="flex items-center gap-2 text-base font-medium text-white/80 hover:text-white transition-colors duration-300 group whitespace-nowrap"
+                className="flex items-center gap-2 text-sm sm:text-base lg:text-lg font-medium text-white/80 hover:text-white transition-colors duration-300 group whitespace-nowrap uppercase"
+                style={{ fontFamily: "Arial, sans-serif" }}
               >
                 <category.icon
                   size={18}
@@ -124,7 +128,10 @@ export default function Navbar() {
                         size={20}
                         className="text-white custom-purple transition-colors duration-300"
                       />
-                      <span className="text-white font-medium text-base">
+                      <span
+                        className="text-white font-medium text-sm sm:text-base lg:text-lg uppercase"
+                        style={{ fontFamily: "Arial, sans-serif" }}
+                      >
                         {category.name}
                       </span>
                     </Link>

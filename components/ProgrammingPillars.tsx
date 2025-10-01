@@ -3,40 +3,41 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
+import { Radio, Film, Clock, Lightbulb, Globe } from "lucide-react";
 
 const pillars = [
   {
     title: "REACH",
     color: "#ec4899",
-    icon: "📡",
+    icon: Radio,
     description:
       "Millions of viewers tune in each night during primetime, supported by a fast-growing digital community that amplifies campaigns.",
   },
   {
     title: "SPECTRUM",
     color: "#14b8a6",
-    icon: "🎬",
+    icon: Film,
     description:
       "A complete mix of genres that spans dramas, movies, news, business, music, talk, health, kids, and flagship specials.",
   },
   {
     title: "CONSISTENCY",
     color: "#eab308",
-    icon: "⚡",
+    icon: Clock,
     description:
       "Over 30 hours of uneclipsed fresh content every week, including three hours of primetime dramas each evening, five nights a week. A fixed and predictable grid ensures audiences always know where to find their shows.",
   },
   {
     title: "INNOVATION",
     color: "#d946ef",
-    icon: "💡",
+    icon: Lightbulb,
     description:
       "Large-scale studio productions and unique formats such as Zare Ke Kana bring fresh energy to Ethiopian television and anchor weekend family viewing.",
   },
   {
     title: "EXTENSION",
     color: "#3b82f6",
-    icon: "🌐",
+    icon: Globe,
     description:
       "High engagement on Facebook, YouTube, Instagram, and TikTok ensures that campaigns live well beyond the first broadcast.",
   },
@@ -123,7 +124,7 @@ const PillarCard = ({
       className="group relative cursor-pointer"
       ref={cardRef}
     >
-      <div className="relative h-full bg-gradient-to-br from-gray-900 to-black rounded-3xl overflow-hidden border border-white/10 hover:border-white/20 transition-all duration-500 shadow-xl hover:shadow-2xl">
+      <div className="relative h-full bg-gradient-to-br from-gray-900 to-black rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 hover:border-white/20 transition-all duration-500 shadow-lg hover:shadow-xl">
         {/* Decorative gradient overlay */}
         <div
           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
@@ -135,41 +136,41 @@ const PillarCard = ({
         {/* Content Container */}
         <div
           ref={contentRef}
-          className="relative h-full p-8 flex flex-col justify-between bg-[#1a1a1a] transition-colors duration-400"
+          className="relative h-full p-6 sm:p-8 flex flex-col justify-between bg-[#1a1a1a] transition-colors duration-400"
         >
           {/* Icon */}
-          <div className="mb-6">
+          <div className="mb-4 sm:mb-6">
             <div
               ref={iconRef}
-              className="w-20 h-20 rounded-2xl flex items-center justify-center text-5xl shadow-lg transition-transform duration-400"
+              className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg transition-transform duration-400"
               style={{
                 backgroundColor: `${pillar.color}20`,
-                boxShadow: `0 10px 30px ${pillar.color}30`,
+                boxShadow: `0 8px 25px ${pillar.color}30`,
               }}
             >
-              {pillar.icon}
+              <pillar.icon className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white" />
             </div>
           </div>
 
           {/* Title */}
-          <div className="mb-4">
+          <div className="mb-3 sm:mb-4">
             <div
-              className="w-16 h-1 mb-4 rounded-full"
+              className="w-12 h-0.5 sm:w-16 sm:h-1 mb-3 sm:mb-4 rounded-full"
               style={{ backgroundColor: pillar.color }}
             ></div>
-            <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-white leading-tight mb-2">
+            <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-black uppercase tracking-tight text-white leading-tight mb-2">
               {pillar.title}
             </h3>
           </div>
 
           {/* Description */}
-          <p className="text-base text-white/80 leading-relaxed group-hover:text-black transition-colors duration-400">
+          <p className="text-sm sm:text-base text-white/80 leading-relaxed group-hover:text-black transition-colors duration-400">
             {pillar.description}
           </p>
 
           {/* Decorative corner accent */}
           <div
-            className="absolute top-0 right-0 w-24 h-24 rounded-bl-full opacity-10"
+            className="absolute top-0 right-0 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-bl-full opacity-10"
             style={{ backgroundColor: pillar.color }}
           ></div>
         </div>
@@ -188,37 +189,27 @@ export default function ProgrammingPillars() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-yellow-500/5 via-pink-500/5 to-transparent rounded-full blur-3xl"></div>
       </div>
 
-      <div className="relative z-10 px-6 sm:px-10 lg:px-20 xl:px-32 py-24 md:py-32">
+      <div className="relative z-10 py-16 sm:py-20 md:py-24">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-24"
+          className="text-center mb-16 px-4 sm:px-6 lg:px-8"
         >
-          {/* Decorative top line */}
-          <div className="flex justify-center mb-10">
-            <div className="w-32 h-1.5 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 rounded-full"></div>
-          </div>
-
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-8 leading-tight max-w-5xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 leading-tight">
             5 CORE PROGRAMMING PILLARS
-            <br />
-            <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent">
-              THE KANA ADVANTAGE
-            </span>
           </h2>
-          <p className="text-xl md:text-2xl text-white/70 font-medium max-w-3xl mx-auto">
-            Television That Reaches Millions and Lives On Across Digital
-          </p>
         </motion.div>
 
         {/* Pillars Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 mb-24">
-          {pillars.map((pillar, index) => (
-            <PillarCard key={pillar.title} pillar={pillar} index={index} />
-          ))}
+        <div className="px-4 sm:px-6 lg:px-8 mb-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-6 lg:gap-8">
+            {pillars.map((pillar, index) => (
+              <PillarCard key={pillar.title} pillar={pillar} index={index} />
+            ))}
+          </div>
         </div>
 
         {/* Bottom Section - Full Spectrum */}
@@ -227,14 +218,14 @@ export default function ProgrammingPillars() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="relative"
+          className="relative px-4 sm:px-6 lg:px-8"
         >
-          <div className="relative bg-gradient-to-br from-purple-600 via-purple-700 to-fuchsia-600 rounded-3xl p-10 md:p-16 overflow-hidden shadow-2xl">
+          <div className="relative bg-gradient-to-br from-purple-600 via-purple-700 to-fuchsia-600 rounded-2xl sm:rounded-3xl p-8 sm:p-12 md:p-16 overflow-hidden shadow-2xl">
             {/* Decorative elements */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-black/10 rounded-full blur-3xl"></div>
+            <div className="absolute top-0 right-0 w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 bg-white/5 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 bg-black/10 rounded-full blur-3xl"></div>
 
-            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
               <div>
                 <motion.div
                   initial={{ opacity: 0, x: -30 }}
@@ -242,11 +233,11 @@ export default function ProgrammingPillars() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.4 }}
                 >
-                  <div className="w-20 h-1 bg-yellow-400 mb-8 rounded-full"></div>
-                  <h3 className="text-5xl md:text-6xl lg:text-7xl font-black text-white mb-4 leading-tight">
+                  <div className="w-16 h-1 bg-yellow-400 mb-6 sm:mb-8 rounded-full"></div>
+                  <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-3 sm:mb-4 leading-tight">
                     FULL SPECTRUM
                   </h3>
-                  <h3 className="text-5xl md:text-6xl lg:text-7xl font-black bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent leading-tight">
+                  <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent leading-tight">
                     TELEVISION
                   </h3>
                 </motion.div>
@@ -257,13 +248,13 @@ export default function ProgrammingPillars() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.5 }}
               >
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
-                  <p className="text-white text-xl md:text-2xl leading-relaxed mb-6 font-medium">
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl p-6 sm:p-8 border border-white/20">
+                  <p className="text-white text-lg sm:text-xl md:text-2xl leading-relaxed mb-4 sm:mb-6 font-medium">
                     Kana TV is Ethiopia&apos;s leading television network,
                     delivering world-class content across 5 core programming
                     pillars to millions of viewers nationwide.
                   </p>
-                  <p className="text-white/90 text-lg md:text-xl leading-relaxed">
+                  <p className="text-white/90 text-base sm:text-lg md:text-xl leading-relaxed">
                     We combine international premium dramas, innovative local
                     productions, and cutting-edge business content to create
                     Ethiopia&apos;s most comprehensive entertainment ecosystem.
@@ -280,11 +271,11 @@ export default function ProgrammingPillars() {
           whileInView={{ opacity: 1, scaleX: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1, delay: 0.6 }}
-          className="mt-16 flex justify-center gap-4"
+          className="mt-12 px-4 sm:px-6 lg:px-8 flex justify-center gap-3 sm:gap-4"
         >
-          <div className="h-1.5 w-32 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full" />
-          <div className="h-1.5 w-32 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full" />
-          <div className="h-1.5 w-32 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full" />
+          <div className="h-1 w-16 sm:w-24 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full" />
+          <div className="h-1 w-16 sm:w-24 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full" />
+          <div className="h-1 w-16 sm:w-24 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full" />
         </motion.div>
       </div>
     </section>

@@ -38,7 +38,7 @@ export default function Header() {
       initial={{ y: 0 }}
       animate={{ y: isVisible ? 0 : -100 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="sticky top-0 z-50 w-full bg-gradient-to-r from-black/95 via-black/90 to-black/95 backdrop-blur-md border-b border-white/10 header-root"
+      className="fixed top-0 left-0 right-0 z-50 w-full bg-gradient-to-r from-black/95 via-black/90 to-black/95 backdrop-blur-md border-b border-white/10 header-root"
     >
       <style jsx>{`
         .custom-purple:hover {
@@ -52,10 +52,10 @@ export default function Header() {
         }
       `}</style>
       <div className="w-full px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between relative">
+        <div className="flex h-24 items-center justify-between relative">
           {/* Logo - Left aligned */}
           <Link href="/" className="flex items-center group">
-            <div className="relative h-12 w-16">
+            <div className="relative h-16 w-20">
               <Image
                 src="/Kana_TV.png"
                 alt="Kana TV Logo"
@@ -74,13 +74,14 @@ export default function Header() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`relative group text-base font-medium transition-colors duration-300 ${
+                  className={`relative group text-sm sm:text-base lg:text-lg font-medium transition-colors duration-300 uppercase ${
                     isActive ? "text-white" : "text-white/80 hover:text-white"
                   }`}
+                  style={{ fontFamily: "Arial, sans-serif" }}
                 >
                   {item.name}
                   <span
-                    className={`absolute bottom-0 left-0 h-0.5 transition-all duration-300 ${
+                    className={`absolute bottom-0 left-0 h-0.5 transition-all duration-300 hidden sm:block ${
                       isActive ? "w-full" : "w-0 group-hover:w-full"
                     }`}
                     style={{ backgroundColor: "#A80563" }}
@@ -115,7 +116,10 @@ export default function Header() {
                   fill="white"
                 />
               </svg>
-              <span className="text-base font-medium text-white custom-purple transition-colors duration-300">
+              <span
+                className="text-sm sm:text-base lg:text-lg font-medium text-white/80 hover:text-white transition-colors duration-300 uppercase"
+                style={{ fontFamily: "Arial, sans-serif" }}
+              >
                 YouTube
               </span>
             </a>
@@ -153,16 +157,17 @@ export default function Header() {
                       <Link
                         key={item.name}
                         href={item.href}
-                        className={`relative group text-xl font-medium transition-colors duration-300 text-left ${
+                        className={`relative group text-lg sm:text-xl lg:text-2xl font-medium transition-colors duration-300 text-left uppercase ${
                           isActive
                             ? "text-white"
                             : "text-white/80 hover:text-white"
                         }`}
+                        style={{ fontFamily: "Arial, sans-serif" }}
                         onClick={() => setIsMenuOpen(false)}
                       >
                         {item.name}
                         <span
-                          className={`absolute bottom-0 left-0 h-0.5 transition-all duration-300 ${
+                          className={`absolute bottom-0 left-0 h-0.5 transition-all duration-300 hidden sm:block ${
                             isActive ? "w-full" : "w-0 group-hover:w-full"
                           }`}
                           style={{ backgroundColor: "#A80563" }}
@@ -198,7 +203,10 @@ export default function Header() {
                         fill="white"
                       />
                     </svg>
-                    <span className="text-white font-medium text-lg custom-purple transition-colors duration-300">
+                    <span
+                      className="text-white/80 hover:text-white font-medium text-base sm:text-lg lg:text-xl transition-colors duration-300 uppercase"
+                      style={{ fontFamily: "Arial, sans-serif" }}
+                    >
                       YouTube
                     </span>
                   </a>

@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import SimpleMarquee from "./simple-marquee";
 import { gsap } from "gsap";
+import Image from "next/image";
 
 interface Show {
   coverArt: string;
@@ -226,11 +227,24 @@ export default function TrendingMarquee() {
 
   return (
     <div
-      className="flex w-full relative justify-center items-center flex-col overflow-hidden bg-white"
+      className="flex w-full relative justify-center items-center flex-col overflow-hidden"
       style={{
         height: `calc(100vh - ${heightOffset})`,
       }}
     >
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <Image
+          width={1920}
+          height={1080}
+          src="/hero-page-1.jpg"
+          alt="Kana TV Background"
+          className="w-full h-full object-cover"
+        />
+        {/* Dark overlay to match the image */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/60 to-black/80"></div>
+      </div>
+
       {/* Swiss Style Brutal Grid Background */}
       <div className="absolute inset-0 z-0">
         {/* Large brutal grid boxes */}
@@ -239,11 +253,11 @@ export default function TrendingMarquee() {
           className="absolute inset-0"
           style={{
             backgroundImage: `
-              linear-gradient(to right, rgba(0, 0, 0, 0.08) 2px, transparent 2px),
-              linear-gradient(to bottom, rgba(0, 0, 0, 0.08) 2px, transparent 2px)
+              linear-gradient(to right, rgba(255, 255, 255, 0.15) 2px, transparent 2px),
+              linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 2px, transparent 2px)
             `,
             backgroundSize: "200px 200px",
-            opacity: 0.3,
+            opacity: 0.4,
           }}
         />
 
@@ -252,8 +266,8 @@ export default function TrendingMarquee() {
           className="absolute inset-0"
           style={{
             backgroundImage: `
-              linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px)
+              linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px)
             `,
             backgroundSize: "100px 100px",
           }}
@@ -264,28 +278,28 @@ export default function TrendingMarquee() {
           ref={(el) => {
             horizontalLinesRef.current[0] = el;
           }}
-          className="absolute top-[20%] left-0 right-0 h-[2px] bg-black/5"
+          className="absolute top-[20%] left-0 right-0 h-[2px] bg-white/10"
           style={{ transformOrigin: "center" }}
         />
         <div
           ref={(el) => {
             horizontalLinesRef.current[1] = el;
           }}
-          className="absolute top-[40%] left-0 right-0 h-[2px] bg-black/5"
+          className="absolute top-[40%] left-0 right-0 h-[2px] bg-white/10"
           style={{ transformOrigin: "center" }}
         />
         <div
           ref={(el) => {
             horizontalLinesRef.current[2] = el;
           }}
-          className="absolute top-[60%] left-0 right-0 h-[2px] bg-black/5"
+          className="absolute top-[60%] left-0 right-0 h-[2px] bg-white/10"
           style={{ transformOrigin: "center" }}
         />
         <div
           ref={(el) => {
             horizontalLinesRef.current[3] = el;
           }}
-          className="absolute top-[80%] left-0 right-0 h-[2px] bg-black/5"
+          className="absolute top-[80%] left-0 right-0 h-[2px] bg-white/10"
           style={{ transformOrigin: "center" }}
         />
 
@@ -294,37 +308,37 @@ export default function TrendingMarquee() {
           ref={(el) => {
             verticalLinesRef.current[0] = el;
           }}
-          className="absolute top-0 bottom-0 left-[20%] w-[2px] bg-black/5"
+          className="absolute top-0 bottom-0 left-[20%] w-[2px] bg-white/10"
           style={{ transformOrigin: "center" }}
         />
         <div
           ref={(el) => {
             verticalLinesRef.current[1] = el;
           }}
-          className="absolute top-0 bottom-0 left-[40%] w-[2px] bg-black/5"
+          className="absolute top-0 bottom-0 left-[40%] w-[2px] bg-white/10"
           style={{ transformOrigin: "center" }}
         />
         <div
           ref={(el) => {
             verticalLinesRef.current[2] = el;
           }}
-          className="absolute top-0 bottom-0 left-[60%] w-[2px] bg-black/5"
+          className="absolute top-0 bottom-0 left-[60%] w-[2px] bg-white/10"
           style={{ transformOrigin: "center" }}
         />
         <div
           ref={(el) => {
             verticalLinesRef.current[3] = el;
           }}
-          className="absolute top-0 bottom-0 left-[80%] w-[2px] bg-black/5"
+          className="absolute top-0 bottom-0 left-[80%] w-[2px] bg-white/10"
           style={{ transformOrigin: "center" }}
         />
 
         {/* Subtle gradient overlay for depth */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-50/20 via-transparent to-gray-50/20 " />
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900/30 via-transparent to-gray-900/30 " />
       </div>
 
       {loading ? (
-        <div className="text-black relative z-10 font-bold">
+        <div className="text-white relative z-10 font-bold">
           Loading shows...
         </div>
       ) : (
