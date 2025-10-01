@@ -244,21 +244,6 @@ export default function LoadingSplash() {
                 }}
               />
             </motion.div>
-
-            {/* Progress bar */}
-            <motion.div
-              className="mt-8 w-64 h-1 bg-white/20 rounded-full overflow-hidden"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 2 }}
-            >
-              <motion.div
-                className="h-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 rounded-full"
-                initial={{ width: "0%" }}
-                animate={{ width: "100%" }}
-                transition={{ duration: 2, delay: 2.5, ease: "easeInOut" }}
-              />
-            </motion.div>
           </div>
         </motion.div>
       )}

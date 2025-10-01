@@ -20,7 +20,7 @@ export default function AboutHero() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/60 to-black/90" />
+        <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-black/80" />
       </motion.div>
 
       {/* Content */}
@@ -94,17 +94,17 @@ export default function AboutHero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 1 }}
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+            className="absolute bottom-4 sm:bottom-6 md:-bottom-8 lg:-bottom-30  left-1/2 transform -translate-x-1/2"
           >
             <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
-              className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center"
+              className="w-5 h-8 sm:w-6 sm:h-10 border-2 border-white/30 rounded-full flex justify-center"
             >
               <motion.div
                 animate={{ y: [0, 12, 0] }}
                 transition={{ duration: 2, repeat: Infinity }}
-                className="w-1 h-3 bg-white/60 rounded-full mt-2"
+                className="w-1 h-2 sm:h-3 bg-white/60 rounded-full mt-1.5 sm:mt-2"
               />
             </motion.div>
           </motion.div>

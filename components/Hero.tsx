@@ -1,14 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export default function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 300], [0, -50]);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0.8]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -23,12 +20,10 @@ export default function Hero() {
   }, []);
   return (
     <motion.section
-      className="relative w-full overflow-hidden"
+      className="relative w-full overflow-hidden mt-24"
       style={{
         fontFamily: "Helvetica, Arial, sans-serif",
-        height: "calc(100vh - 4rem)",
-        y,
-        opacity,
+        height: "calc(100vh - 6rem)",
       }}
     >
       {/* Hero Image - First page of PDF */}
