@@ -385,7 +385,7 @@ export default function Hero() {
       {/* Hero Content */}
       <div className="relative z-10 h-full flex items-center px-4 sm:px-6 lg:px-8">
         {/* Left side - Logo and Text content */}
-        <div className="text-white max-w-4xl sm:max-w-5xl lg:max-w-6xl relative">
+        <div className="text-white max-w-4xl sm:max-w-5xl lg:max-w-6xl relative pl-8 sm:pl-12 lg:pl-16 pr-8 sm:pr-12 lg:pr-16">
           {/* Logo positioned to overlap with text */}
           <div className="hidden sm:block absolute -top-4 -right-4 z-20">
             <div className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 opacity-0">
