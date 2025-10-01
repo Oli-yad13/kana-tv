@@ -1,74 +1,131 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
 
 const pillars = [
   {
     title: "REACH",
-    subtitle: "Massive Audience",
-    color: "from-pink-500 to-pink-600",
+    color: "#ec4899",
     description:
       "Millions of viewers tune in each night during primetime, supported by a fast-growing digital community that amplifies campaigns.",
-    icon: "📡",
-    stat: "12-15M",
-    unit: "Viewers",
   },
   {
     title: "SPECTRUM",
-    subtitle: "Complete Mix",
-    color: "from-teal-500 to-teal-600",
+    color: "#14b8a6",
     description:
       "A complete mix of genres that spans dramas, movies, news, business, music, talk, health, kids, and flagship specials.",
-    icon: "🌈",
-    stat: "7+",
-    unit: "Genres",
   },
   {
     title: "CONSISTENCY",
-    subtitle: "Fresh Content",
-    color: "from-orange-500 to-orange-600",
+    color: "#eab308",
     description:
-      "Over 30 hours of uneclipsed fresh content every week, including three hours of primetime dramas each evening, five nights a week.",
-    icon: "⏰",
-    stat: "30+",
-    unit: "Hours/Week",
+      "Over 30 hours of uneclipsed fresh content every week, including three hours of primetime dramas each evening, five nights a week. A fixed and predictable grid ensures audiences always know where to find their shows.",
   },
   {
     title: "INNOVATION",
-    subtitle: "Creative Formats",
-    color: "from-purple-500 to-purple-600",
+    color: "#d946ef",
     description:
-      "Large-scale studio productions and unique formats such as Zare Ke Kana bring fresh energy to Ethiopian television.",
-    icon: "✨",
-    stat: "100%",
-    unit: "Original",
+      "Large-scale studio productions and unique formats such as Zare Ke Kana bring fresh energy to Ethiopian television and anchor weekend family viewing.",
   },
   {
     title: "EXTENSION",
-    subtitle: "Digital Reach",
-    color: "from-blue-500 to-blue-600",
+    color: "#3b82f6",
     description:
       "High engagement on Facebook, YouTube, Instagram, and TikTok ensures that campaigns live well beyond the first broadcast.",
-    icon: "📱",
-    stat: "5.2M+",
-    unit: "Digital",
   },
 ];
 
+// Individual pillar card component to fix hooks issue
+const PillarCard = ({ pillar, index }: { pillar: typeof pillars[0]; index: number }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const card = cardRef.current;
+    const content = contentRef.current;
+
+    if (!card || !content) return;
+
+    const handleMouseEnter = () => {
+      gsap.to(content, {
+        backgroundColor: pillar.color,
+        color: "#000000",
+        duration: 0.3,
+        ease: "power2.out"
+      });
+      gsap.to(card, {
+        scale: 1.02,
+        duration: 0.3,
+        ease: "power2.out"
+      });
+    };
+
+    const handleMouseLeave = () => {
+      gsap.to(content, {
+        backgroundColor: "#000000",
+        color: "#ffffff",
+        duration: 0.3,
+        ease: "power2.out"
+      });
+      gsap.to(card, {
+        scale: 1,
+        duration: 0.3,
+        ease: "power2.out"
+      });
+    };
+
+    card.addEventListener('mouseenter', handleMouseEnter);
+    card.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      card.removeEventListener('mouseenter', handleMouseEnter);
+      card.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, [pillar.color]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{
+        duration: 0.6,
+        delay: index * 0.1,
+        ease: "easeOut",
+      }}
+      className="group relative cursor-pointer"
+      ref={cardRef}
+    >
+      <div className="relative h-80 bg-black border-2 border-white overflow-hidden flex flex-col">
+        {/* Title Bar */}
+        <div className="bg-white text-black p-4 flex items-center justify-between flex-shrink-0">
+          <h3 className="text-lg font-bold uppercase tracking-tight">
+            {pillar.title}
+          </h3>
+          <div className="w-6 h-6 bg-black rounded flex items-center justify-center">
+            <span className="text-white text-sm font-bold">×</span>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div
+          ref={contentRef}
+          className="p-6 flex-1 bg-black text-white"
+        >
+          <p className="text-sm leading-relaxed">
+            {pillar.description}
+          </p>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
 export default function ProgrammingPillars() {
   return (
-    <section className="px-6 sm:px-10 lg:px-16 py-12 relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='40' cy='40' r='3'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-            backgroundRepeat: "repeat",
-          }}
-        />
-      </div>
-
+    <section className="px-6 sm:px-10 lg:px-16 py-16 relative overflow-hidden bg-black">
       <div className="relative z-10">
         {/* Header */}
         <motion.div
@@ -76,86 +133,31 @@ export default function ProgrammingPillars() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="mb-16"
         >
-          <div className="inline-block px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 mb-8">
-            <span className="text-cyan-400 font-semibold text-sm uppercase tracking-wider">
-              Core Programming
-            </span>
+          <div className="flex items-center justify-between mb-8">
+            <div className="flex gap-2">
+              <div className="w-8 h-8 bg-white rounded flex items-center justify-center">
+                <span className="text-black text-sm font-bold">×</span>
+              </div>
+              <div className="w-8 h-8 bg-white rounded flex items-center justify-center">
+                <span className="text-black text-sm font-bold">⌄</span>
+              </div>
+            </div>
           </div>
-          <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-6">
-            5 Core Programming
-            <br />
-            <span className="text-cyan-400">Pillars</span>
+
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            5 CORE PROGRAMMING PILLARS - THE KANA ADVANTAGE FOR AUDIENCES AND THEIR ADVERTISERS
           </h2>
-          <p className="text-white/80 leading-relaxed max-w-4xl">
-            The Kana Advantage for Audiences and Their Advertisers
-          </p>
-          <p className="text-white/60 mt-4">
-            Television That Reaches Millions and Lives On Across Digital
+          <p className="text-lg text-white/80">
+            Television That Reaches Millions and Lives On Across Digital.
           </p>
         </motion.div>
 
         {/* Pillars Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-16">
           {pillars.map((pillar, index) => (
-            <motion.div
-              key={pillar.title}
-              initial={{ opacity: 0, y: 30, scale: 0.95 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{
-                duration: 0.6,
-                delay: index * 0.1,
-                ease: "easeOut",
-              }}
-              whileHover={{
-                scale: 1.05,
-                transition: { duration: 0.2 },
-              }}
-              className="group relative"
-            >
-              <div className="relative h-full bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 overflow-hidden">
-                {/* Background Gradient */}
-                <div
-                  className={`absolute inset-0 bg-gradient-to-br ${pillar.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
-                />
-
-                {/* Content */}
-                <div className="relative z-10">
-                  {/* Header with Icon and Stat */}
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="text-4xl group-hover:scale-110 transition-transform duration-300">
-                      {pillar.icon}
-                    </div>
-                    <div className="text-right">
-                      <div className="text-2xl font-black text-white group-hover:scale-105 transition-transform duration-300">
-                        {pillar.stat}
-                      </div>
-                      <div className="text-xs font-semibold text-white/70 uppercase tracking-wider">
-                        {pillar.unit}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Title and Subtitle */}
-                  <h3 className="text-2xl font-black text-white mb-2 group-hover:text-cyan-400 transition-colors duration-300">
-                    {pillar.title}
-                  </h3>
-                  <p className="text-cyan-400 font-semibold text-sm mb-4">
-                    {pillar.subtitle}
-                  </p>
-
-                  {/* Description */}
-                  <p className="text-white/80 leading-relaxed text-sm">
-                    {pillar.description}
-                  </p>
-                </div>
-
-                {/* Hover Effect */}
-                <div className="absolute inset-0 border border-white/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
-            </motion.div>
+            <PillarCard key={pillar.title} pillar={pillar} index={index} />
           ))}
         </div>
 
@@ -165,18 +167,26 @@ export default function ProgrammingPillars() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-center"
+          className="relative"
         >
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 md:p-12 max-w-4xl">
-            <h3 className="text-2xl md:text-3xl font-bold text-white mb-6">
-              The Complete Entertainment Ecosystem
-            </h3>
-            <p className="text-lg text-white/80 leading-relaxed">
-              These five pillars work together to create Ethiopia&apos;s most
-              comprehensive entertainment platform, delivering unmatched value
-              to both audiences and advertisers through consistent, innovative,
-              and engaging content across all platforms.
-            </p>
+          <div className="bg-purple-600 p-8 md:p-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <h3 className="text-5xl md:text-6xl font-black text-white mb-8 leading-tight">
+                  FULL SPECTRUM
+                  <br />
+                  <span className="text-yellow-400">TELEVISION</span>
+                </h3>
+              </div>
+              <div>
+                <p className="text-white text-xl leading-relaxed mb-8">
+                  Kana TV is Ethiopia&apos;s leading television network, delivering world-class content across 5 core programming pillars to millions of viewers nationwide.
+                </p>
+                <p className="text-white/90 text-lg leading-relaxed">
+                  We combine international premium dramas, innovative local productions, and cutting-edge business content to create Ethiopia&apos;s most comprehensive entertainment ecosystem.
+                </p>
+              </div>
+            </div>
           </div>
         </motion.div>
 
@@ -186,13 +196,10 @@ export default function ProgrammingPillars() {
           whileInView={{ opacity: 1, scaleX: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1, delay: 0.8 }}
-          className="mt-12 flex justify-center gap-4"
+          className="mt-8 flex justify-center gap-8"
         >
-          <div className="h-1 w-16 bg-gradient-to-r from-pink-500 to-pink-600 rounded-full" />
-          <div className="h-1 w-16 bg-gradient-to-r from-teal-500 to-teal-600 rounded-full" />
-          <div className="h-1 w-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full" />
-          <div className="h-1 w-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full" />
-          <div className="h-1 w-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full" />
+          <div className="h-1 w-24 bg-pink-500" />
+          <div className="h-1 w-24 bg-blue-500" />
         </motion.div>
       </div>
     </section>

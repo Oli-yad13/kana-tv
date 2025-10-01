@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
 import AboutHero from "@/components/AboutHero";
-import AboutValues from "@/components/AboutValues";
 import ProgrammingPillars from "@/components/ProgrammingPillars";
 import DigitalReach from "@/components/DigitalReach";
 import ContentStats from "@/components/ContentStats";
-import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "About | Kana TV",
@@ -27,35 +25,6 @@ export default function AboutPage() {
 
       {/* Digital Reach */}
       <DigitalReach />
-
-      {/* Mission Section */}
-      <section className="px-6 sm:px-10 lg:px-16 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
-          <div className="lg:col-span-2">
-            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight">
-              Our Mission
-            </h2>
-            <p className="mt-4 text-white/80 leading-relaxed max-w-3xl">
-              We exist to elevate Ethiopian storytelling. Through premium
-              dubbing, original productions, and curated international hits,
-              Kana TV brings audiences together around shared moments—where
-              entertainment meets culture and community. We deliver the widest
-              spectrum of premium Amharic content with zero repeats.
-            </p>
-          </div>
-          <div className="relative h-56 sm:h-64 md:h-72 lg:h-80 w-full rounded-2xl overflow-hidden border border-white/10">
-            <Image
-              src="/hero-cover.png"
-              alt="Kana TV"
-              fill
-              className="object-contain"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Values */}
-      <AboutValues />
 
       {/* CTA */}
       <section className="px-6 sm:px-10 lg:px-16 pb-16">
@@ -79,3 +48,4 @@ export default function AboutPage() {
     </main>
   );
 }
+
