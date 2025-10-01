@@ -74,7 +74,7 @@ export default function BlogIndexPage() {
               Kana TV Blog
             </h1>
             <p className="mt-3 text-white/80 max-w-2xl">
-              Stories, announcements, and insights from Ethiopia's only
+              Stories, announcements, and insights from Ethiopia&apos;s only
               full-spectrum TV.
             </p>
           </div>
