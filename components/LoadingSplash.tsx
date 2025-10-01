@@ -8,13 +8,30 @@ export default function LoadingSplash() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // While loading, mark body as splash-active to allow global UI adjustments (e.g., hide header)
+    if (typeof document !== "undefined") {
+      document.body.classList.add("splash-active");
+    }
+
     // Simulate loading time
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 3000);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      if (typeof document !== "undefined") {
+        document.body.classList.remove("splash-active");
+      }
+    };
   }, []);
+
+  // When loading finishes, remove the marker class
+  useEffect(() => {
+    if (!isLoading && typeof document !== "undefined") {
+      document.body.classList.remove("splash-active");
+    }
+  }, [isLoading]);
 
   return (
     <AnimatePresence>

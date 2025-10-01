@@ -38,7 +38,7 @@ export default function Header() {
       initial={{ y: 0 }}
       animate={{ y: isVisible ? 0 : -100 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="sticky top-0 z-50 w-full bg-gradient-to-r from-black/95 via-black/90 to-black/95 backdrop-blur-md border-b border-white/10"
+      className="sticky top-0 z-50 w-full bg-gradient-to-r from-black/95 via-black/90 to-black/95 backdrop-blur-md border-b border-white/10 header-root"
     >
       <style jsx>{`
         .custom-purple:hover {
