@@ -65,12 +65,8 @@ export default function ContactForm() {
     "w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-pink-600/60";
 
   return (
-    <motion.form
+    <form
       onSubmit={handleSubmit}
-      initial={{ opacity: 0, y: 12 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.4 }}
       className="space-y-4"
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -133,6 +129,6 @@ export default function ContactForm() {
           </span>
         )}
       </div>
-    </motion.form>
+    </form>
   );
 }
