@@ -118,10 +118,10 @@ export default function AboutValues() {
         >
           <div className="max-w-4xl">
             <blockquote className="text-2xl md:text-3xl font-light text-white/90 italic leading-relaxed">
-              "We are here to{" "}
+              &ldquo;We are here to{" "}
               <span className="text-yellow-400 font-bold">entertain</span>. If
               we make you think, laugh, or feel inspired along the way, even
-              better."
+              better.&rdquo;
             </blockquote>
             <div className="mt-6 w-24 h-1 bg-gradient-to-r from-cyan-400 to-pink-400 rounded-full mx-auto" />
           </div>
