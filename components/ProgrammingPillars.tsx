@@ -98,23 +98,23 @@ const PillarCard = ({ pillar, index }: { pillar: typeof pillars[0]; index: numbe
       className="group relative cursor-pointer"
       ref={cardRef}
     >
-      <div className="relative h-80 bg-black border-2 border-white overflow-hidden flex flex-col">
+      <div className="relative h-[500px] bg-black border-2 border-white overflow-hidden flex flex-col">
         {/* Title Bar */}
-        <div className="bg-white text-black p-4 flex items-center justify-between flex-shrink-0">
-          <h3 className="text-lg font-bold uppercase tracking-tight">
+        <div className="bg-white text-black p-5 flex items-center justify-between flex-shrink-0">
+          <h3 className="text-2xl font-bold uppercase tracking-tight">
             {pillar.title}
           </h3>
-          <div className="w-6 h-6 bg-black rounded flex items-center justify-center">
-            <span className="text-white text-sm font-bold">×</span>
+          <div className="w-7 h-7 bg-black rounded flex items-center justify-center">
+            <span className="text-white text-base font-bold">+</span>
           </div>
         </div>
 
         {/* Content */}
         <div
           ref={contentRef}
-          className="p-6 flex-1 bg-black text-white"
+          className="p-8 flex-1 bg-black text-white"
         >
-          <p className="text-sm leading-relaxed">
+          <p className="text-xl md:text-2xl leading-relaxed">
             {pillar.description}
           </p>
         </div>
