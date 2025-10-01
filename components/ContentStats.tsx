@@ -1,8 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
 
 const achievements = [
   {
@@ -10,23 +8,23 @@ const achievements = [
     subtitle: "Largest Drama Block",
     description:
       "Only network with 15+ hours/week of fresh episodic drama content",
-    color: "#ffffff",
-    textColor: "text-black",
+    gradient: "from-pink-500 to-rose-500",
+    icon: "📺",
   },
   {
     title: "10+ HRS WEEKLY LOCAL",
     subtitle: "Most Diverse Local Content Segments",
     description: "7 diverse full-spectrum genres of local content",
-    color: "#4ade80",
-    textColor: "text-black",
+    gradient: "from-purple-500 to-pink-500",
+    icon: "🎭",
   },
   {
     title: "12-15 MILLION PRIMETIME",
-    subtitle: "Primetime Domance",
+    subtitle: "Primetime Dominance",
     description:
       "Kana delivers the biggest weekly primetime audience in Ethiopia and extends reach with massive digital engagement",
-    color: "#facc15",
-    textColor: "text-black",
+    gradient: "from-fuchsia-500 to-purple-500",
+    icon: "👥",
   },
 ];
 
@@ -34,170 +32,114 @@ const keyOfferings = [
   {
     label: "CONTENT SPECTRUM",
     text: "International premium dramas, innovative local productions, and cutting-edge business content",
-    color: "#06b6d4"
+    icon: "🌟",
   },
   {
     label: "PROVEN TRACK RECORD",
     text: "10 years of consistent audience growth and engagement",
-    color: "#ec4899"
+    icon: "🏆",
   },
 ];
 
-// Individual card components to fix hooks issue
-const KeyOfferingCard = ({ offering, index }: { offering: typeof keyOfferings[0]; index: number }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const card = cardRef.current;
-    const content = contentRef.current;
-
-    if (!card || !content) return;
-
-    const handleMouseEnter = () => {
-      gsap.to(content, {
-        backgroundColor: offering.color,
-        color: "#000000",
-        duration: 0.3,
-        ease: "power2.out"
-      });
-      gsap.to(card, {
-        scale: 1.02,
-        duration: 0.3,
-        ease: "power2.out"
-      });
-    };
-
-    const handleMouseLeave = () => {
-      gsap.to(content, {
-        backgroundColor: "#000000",
-        color: "#ffffff",
-        duration: 0.3,
-        ease: "power2.out"
-      });
-      gsap.to(card, {
-        scale: 1,
-        duration: 0.3,
-        ease: "power2.out"
-      });
-    };
-
-    card.addEventListener('mouseenter', handleMouseEnter);
-    card.addEventListener('mouseleave', handleMouseLeave);
-
-    return () => {
-      card.removeEventListener('mouseenter', handleMouseEnter);
-      card.removeEventListener('mouseleave', handleMouseLeave);
-    };
-  }, [offering.color]);
-
+const KeyOfferingCard = ({
+  offering,
+  index,
+}: {
+  offering: (typeof keyOfferings)[0];
+  index: number;
+}) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-      className="cursor-pointer"
-      ref={cardRef}
+      transition={{ duration: 0.7, delay: index * 0.2 }}
+      whileHover={{ scale: 1.03, y: -8 }}
+      className="group cursor-pointer"
     >
-      <div
-        ref={contentRef}
-        className="bg-black border-2 border-white p-6 flex items-center justify-between"
-      >
-        <p className="text-white text-base md:text-lg font-medium leading-relaxed pr-4">
-          {offering.text}
-        </p>
-        <div className="w-8 h-8 bg-white rounded flex items-center justify-center flex-shrink-0">
-          <span className="text-black text-lg font-bold">×</span>
+      <div className="relative h-full bg-gradient-to-br from-gray-900 to-black rounded-3xl p-8 md:p-10 shadow-xl hover:shadow-2xl hover:shadow-pink-500/20 transition-all duration-500 border border-pink-500/20 hover:border-pink-500/40 overflow-hidden">
+        {/* Decorative gradient overlay on hover */}
+        <div className="absolute inset-0 bg-gradient-to-br from-pink-500/10 via-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+        <div className="relative z-10">
+          {/* Icon */}
+          <div className="mb-6">
+            <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-600 rounded-2xl flex items-center justify-center text-3xl shadow-lg shadow-pink-500/30 transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500">
+              {offering.icon}
+            </div>
+          </div>
+
+          {/* Content */}
+          <h3 className="text-sm font-bold uppercase tracking-wider mb-4 bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+            {offering.label}
+          </h3>
+          <p className="text-white text-xl md:text-2xl font-semibold leading-relaxed">
+            {offering.text}
+          </p>
         </div>
+
+        {/* Decorative corner element */}
+        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-pink-500/20 to-transparent rounded-bl-full"></div>
       </div>
     </motion.div>
   );
 };
 
-const AchievementCard = ({ achievement, index }: { achievement: typeof achievements[0]; index: number }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const card = cardRef.current;
-    const content = contentRef.current;
-
-    if (!card || !content) return;
-
-    const handleMouseEnter = () => {
-      gsap.to(content, {
-        backgroundColor: achievement.color,
-        color: "#000000",
-        duration: 0.3,
-        ease: "power2.out"
-      });
-      gsap.to(card, {
-        scale: 1.02,
-        duration: 0.3,
-        ease: "power2.out"
-      });
-    };
-
-    const handleMouseLeave = () => {
-      gsap.to(content, {
-        backgroundColor: "#000000",
-        color: "#ffffff",
-        duration: 0.3,
-        ease: "power2.out"
-      });
-      gsap.to(card, {
-        scale: 1,
-        duration: 0.3,
-        ease: "power2.out"
-      });
-    };
-
-    card.addEventListener('mouseenter', handleMouseEnter);
-    card.addEventListener('mouseleave', handleMouseLeave);
-
-    return () => {
-      card.removeEventListener('mouseenter', handleMouseEnter);
-      card.removeEventListener('mouseleave', handleMouseLeave);
-    };
-  }, [achievement.color]);
-
+const AchievementCard = ({
+  achievement,
+  index,
+}: {
+  achievement: (typeof achievements)[0];
+  index: number;
+}) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{
-        duration: 0.6,
-        delay: index * 0.1,
+        duration: 0.7,
+        delay: index * 0.15,
         ease: "easeOut",
       }}
-      className="group relative cursor-pointer"
-      ref={cardRef}
+      whileHover={{ scale: 1.05, y: -10 }}
+      className="group relative cursor-pointer h-full"
     >
-      <div className="relative h-80 bg-black border-2 border-white overflow-hidden flex flex-col">
-        {/* Title Bar */}
-        <div className="bg-white text-black p-4 flex items-center justify-between flex-shrink-0">
-          <h3 className="text-lg font-bold uppercase tracking-tight">
-            {achievement.title}
-          </h3>
-          <div className="w-6 h-6 bg-black rounded flex items-center justify-center">
-            <span className="text-white text-sm font-bold">×</span>
-          </div>
-        </div>
+      <div className="relative h-full bg-gradient-to-br from-gray-900 to-black rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-pink-500/20 transition-all duration-500 border border-pink-500/20 hover:border-pink-500/40">
+        {/* Gradient accent bar */}
+        <div className={`h-2 bg-gradient-to-r ${achievement.gradient}`}></div>
 
         {/* Content */}
-        <div
-          ref={contentRef}
-          className="p-6 flex-1 bg-black text-white"
-        >
-          <p className="text-sm font-bold mb-2">
+        <div className="p-8">
+          {/* Icon */}
+          <div className="mb-6">
+            <div
+              className={`w-20 h-20 bg-gradient-to-br ${achievement.gradient} rounded-2xl flex items-center justify-center text-4xl shadow-lg shadow-pink-500/30 transform group-hover:scale-110 group-hover:rotate-12 transition-transform duration-500`}
+            >
+              {achievement.icon}
+            </div>
+          </div>
+
+          {/* Title */}
+          <h3 className="text-xl md:text-2xl font-bold mb-3 text-white leading-tight">
+            {achievement.title}
+          </h3>
+
+          {/* Subtitle */}
+          <p className="text-sm font-semibold mb-4 uppercase tracking-wider bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
             {achievement.subtitle}
           </p>
-          <p className="text-sm leading-relaxed">
+
+          {/* Description */}
+          <p className="text-gray-300 text-base leading-relaxed">
             {achievement.description}
           </p>
         </div>
+
+        {/* Decorative gradient overlay */}
+        <div
+          className={`absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl ${achievement.gradient} opacity-10 group-hover:opacity-20 transition-opacity duration-500 rounded-tl-full`}
+        ></div>
       </div>
     </motion.div>
   );
@@ -205,57 +147,96 @@ const AchievementCard = ({ achievement, index }: { achievement: typeof achieveme
 
 export default function ContentStats() {
   return (
-    <section className="px-6 sm:px-10 lg:px-16 py-16 bg-black">
-      <div>
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-16"
-        >
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex gap-2">
-              <div className="w-8 h-8 bg-white rounded flex items-center justify-center">
-                <span className="text-black text-sm font-bold">×</span>
-              </div>
-              <div className="w-8 h-8 bg-white rounded flex items-center justify-center">
-                <span className="text-black text-sm font-bold">⌄</span>
-              </div>
+    <section className="relative overflow-hidden bg-black w-full">
+      {/* Decorative background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-pink-500/20 to-purple-500/20 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-purple-500/20 to-pink-500/20 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-br from-pink-500/15 via-purple-500/15 to-transparent rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="relative z-10 px-6 sm:px-10 lg:px-20 xl:px-32 py-24 md:py-32">
+        <div className="w-full">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-24"
+          >
+            {/* Decorative top line */}
+            <div className="flex justify-center mb-10">
+              <div className="w-32 h-1.5 bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 rounded-full"></div>
             </div>
-          </div>
 
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            KANA CONTENT & PROGRAMMING MEDIA KIT
-          </h2>
-          <p className="text-lg text-white/80">
-            Entertain, Engage, Inspire
-          </p>
-        </motion.div>
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-black text-white mb-8 leading-tight">
+              KANA CONTENT &<br />
+              <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                PROGRAMMING
+              </span>
+            </h2>
+            <p className="text-2xl md:text-3xl text-white/90 font-semibold mb-6">
+              Media Kit
+            </p>
+            <p className="text-xl text-white/70 font-medium max-w-2xl mx-auto">
+              Entertain • Engage • Inspire
+            </p>
+          </motion.div>
 
-        {/* Key Offerings */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mb-8"
-        >
-          <div className="space-y-4">
-            {keyOfferings.map((offering, index) => (
-              <KeyOfferingCard key={index} offering={offering} index={index} />
-            ))}
-          </div>
-        </motion.div>
+          {/* Key Offerings */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="mb-24"
+          >
+            <div className="text-center mb-16">
+              <h3 className="text-4xl md:text-5xl font-black text-white mb-4 uppercase tracking-tight">
+                Key Offerings
+              </h3>
+              <div className="w-24 h-1 bg-gradient-to-r from-pink-500 to-purple-500 mx-auto rounded-full"></div>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+              {keyOfferings.map((offering, index) => (
+                <KeyOfferingCard
+                  key={index}
+                  offering={offering}
+                  index={index}
+                />
+              ))}
+            </div>
+          </motion.div>
 
-        {/* Content Achievements */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {achievements.map((achievement, index) => (
-            <AchievementCard key={achievement.title} achievement={achievement} index={index} />
-          ))}
+          {/* Content Achievements */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            <div className="text-center mb-16">
+              <h3 className="text-4xl md:text-5xl font-black text-white mb-4 uppercase tracking-tight">
+                Content Achievements
+              </h3>
+              <div className="w-24 h-1 bg-gradient-to-r from-pink-500 to-purple-500 mx-auto rounded-full"></div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+              {achievements.map((achievement, index) => (
+                <AchievementCard
+                  key={achievement.title}
+                  achievement={achievement}
+                  index={index}
+                />
+              ))}
+            </div>
+          </motion.div>
         </div>
       </div>
+
+      {/* Bottom decorative wave */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
     </section>
   );
 }
