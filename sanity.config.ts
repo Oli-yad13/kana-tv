@@ -54,7 +54,8 @@ export default defineConfig({
 
   client: studioClient,
 
-  vite: (config) => ({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  vite: (config: any) => ({
     ...config,
     css: {
       postcss: false,
