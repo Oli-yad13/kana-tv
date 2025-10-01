@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Header from "@/components/Header";
-import BlogCard, { type BlogPostMeta } from "@/components/BlogCard";
+import BlogCard from "@/components/BlogCard";
+import { client } from "@/lib/sanity/client";
+import { postsQuery, categoriesQuery } from "@/lib/sanity/queries";
+import type { BlogPostMeta, Category } from "@/types/blog";
 
 export const metadata: Metadata = {
   title: "Blog | Kana TV",
@@ -9,49 +12,35 @@ export const metadata: Metadata = {
     "News, insights, and behind-the-scenes stories from Kana TV programming and team.",
 };
 
-const posts: BlogPostMeta[] = [
-  {
-    slug: "kana-content-universe-2025",
-    title: "Inside Kana's 2025 Content Universe",
-    excerpt:
-      "A look at the programming slate shaping entertainment across Ethiopia—drama, music, and unscripted moments.",
-    cover: "/27.jpg",
-    category: "Announcements",
-    date: "2025-09-30",
-  },
-  {
-    slug: "studio-upgrades-and-future-tech",
-    title: "Studio upgrades and the future of broadcast tech",
-    excerpt:
-      "How production workflows, motion graphics, and audio stacks are evolving at Kana TV.",
-    cover: "/28.jpg",
-    category: "Production",
-    date: "2025-09-28",
-  },
-  {
-    slug: "audience-stories-and-community",
-    title: "Audience stories and community impact",
-    excerpt:
-      "Highlights from viewers and how local storytelling continues to resonate.",
-    cover: "/29.jpg",
-    category: "Community",
-    date: "2025-09-26",
-  },
-  {
-    slug: "music-nights-behind-the-scenes",
-    title: "Music nights: behind the scenes",
-    excerpt:
-      "From stage to screen—capturing atmosphere, energy, and performance.",
-    cover: "/zare ke kana.jpg",
-    category: "Music",
-    date: "2025-09-24",
-  },
-];
+async function getPosts(): Promise<BlogPostMeta[]> {
+  try {
+    const posts = await client.fetch(postsQuery);
+    return posts;
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    return [];
+  }
+}
 
-export default function BlogIndexPage() {
-  const categories = [
+async function getCategories(): Promise<Category[]> {
+  try {
+    const categories = await client.fetch(categoriesQuery);
+    return categories;
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+    return [];
+  }
+}
+
+export default async function BlogIndexPage() {
+  const [posts, categories] = await Promise.all([
+    getPosts(),
+    getCategories()
+  ]);
+
+  const categoryNames = [
     "All",
-    ...Array.from(new Set(posts.map((p) => p.category))),
+    ...categories.map(c => c.title)
   ];
 
   return (
@@ -84,13 +73,13 @@ export default function BlogIndexPage() {
       {/* Filters */}
       <section className="px-6 sm:px-10 lg:px-16 py-6 border-b border-white/10 bg-black">
         <div className="flex flex-wrap gap-2">
-          {categories.map((c) => (
+          {categoryNames.map((categoryName) => (
             <button
-              key={c}
+              key={categoryName}
               className="px-4 py-2 rounded-full bg-white/10 hover:bg-white/15 transition-colors text-sm"
               // Placeholder only; no client filter state in this static page
             >
-              {c}
+              {categoryName}
             </button>
           ))}
         </div>
@@ -100,9 +89,14 @@ export default function BlogIndexPage() {
       <section className="px-6 sm:px-10 lg:px-16 py-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {posts.map((post) => (
-            <BlogCard key={post.slug} post={post} />
+            <BlogCard key={post._id} post={post} />
           ))}
         </div>
+        {posts.length === 0 && (
+          <div className="text-center py-20">
+            <p className="text-white/60 text-lg">No blog posts found. Check back soon!</p>
+          </div>
+        )}
       </section>
     </main>
   );
