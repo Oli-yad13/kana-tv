@@ -4,15 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-
-export interface BlogPostMeta {
-  slug: string;
-  title: string;
-  excerpt: string;
-  cover: string;
-  category: string;
-  date: string;
-}
+import { urlFor } from "@/lib/sanity/client";
+import type { BlogPostMeta } from "@/types/blog";
 
 export default function BlogCard({
   post,
@@ -21,6 +14,9 @@ export default function BlogCard({
   post: BlogPostMeta;
   className?: string;
 }) {
+  const coverImageUrl = post.cover ? urlFor(post.cover).width(800).height(450).url() : '/placeholder.jpg';
+  const categoryColor = post.category?.color || '#A80563';
+
   return (
     <motion.article
       initial={{ y: 12, opacity: 0 }}
@@ -36,24 +32,30 @@ export default function BlogCard({
     >
       <div className="relative aspect-[16/9] w-full overflow-hidden">
         <Image
-          src={post.cover}
-          alt={post.title}
+          src={coverImageUrl}
+          alt={post.cover?.alt || post.title}
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-105"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           priority={false}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/30" />
-        <span
-          className="absolute left-3 top-3 z-10 inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
-          style={{ backgroundColor: "rgba(168,5,99,0.2)", color: "#fff" }}
-        >
-          {post.category}
-        </span>
+        {post.category && (
+          <span
+            className="absolute left-3 top-3 z-10 inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
+            style={{ 
+              backgroundColor: `${categoryColor}20`, 
+              color: "#fff",
+              borderColor: categoryColor
+            }}
+          >
+            {post.category.title}
+          </span>
+        )}
       </div>
       <div className="p-4">
         <h3 className="text-lg md:text-xl font-semibold text-white leading-snug">
-          <Link href={`/blog/${post.slug}`} className="hover:underline">
+          <Link href={`/blog/${post.slug.current}`} className="hover:underline">
             {post.title}
           </Link>
         </h3>
@@ -61,13 +63,13 @@ export default function BlogCard({
           {post.excerpt}
         </p>
         <div className="mt-4 flex items-center justify-between text-xs text-white/60">
-          <time dateTime={post.date}>
-            {new Date(post.date).toLocaleDateString()}
+          <time dateTime={post.publishedAt}>
+            {new Date(post.publishedAt).toLocaleDateString()}
           </time>
           <Link
-            href={`/blog/${post.slug}`}
+            href={`/blog/${post.slug.current}`}
             className="text-white hover:opacity-90"
-            style={{ color: "#A80563" }}
+            style={{ color: categoryColor }}
           >
             Read more →
           </Link>
