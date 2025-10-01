@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import SimpleMarquee from "./simple-marquee";
+import { gsap } from "gsap";
 
 interface Show {
   coverArt: string;
@@ -47,9 +48,76 @@ const shows: Show[] = [
 
 export default function TrendingMarquee() {
   const [loading, setLoading] = useState(true);
+  const horizontalLinesRef = useRef<(HTMLDivElement | null)[]>([]);
+  const verticalLinesRef = useRef<(HTMLDivElement | null)[]>([]);
+  const gridRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setLoading(false);
+
+    // GSAP animations for horizontal lines with pinkish flow
+    if (horizontalLinesRef.current.length > 0) {
+      horizontalLinesRef.current.forEach((line, index) => {
+        if (line) {
+          // Create a timeline for smooth color transition
+          const tl = gsap.timeline({ repeat: -1 });
+          
+          tl.to(line, {
+            opacity: 0.2,
+            scaleX: 1.02,
+            backgroundColor: "rgba(236, 72, 153, 0.08)", // pink-500 with low opacity
+            duration: 4 + index * 0.5,
+            ease: "power1.inOut",
+            delay: index * 0.8
+          })
+          .to(line, {
+            opacity: 0.05,
+            scaleX: 1,
+            backgroundColor: "rgba(0, 0, 0, 0.05)",
+            duration: 4 + index * 0.5,
+            ease: "power1.inOut"
+          });
+        }
+      });
+    }
+
+    // GSAP animations for vertical lines with pinkish flow
+    if (verticalLinesRef.current.length > 0) {
+      verticalLinesRef.current.forEach((line, index) => {
+        if (line) {
+          // Create a timeline for smooth color transition
+          const tl = gsap.timeline({ repeat: -1 });
+          
+          tl.to(line, {
+            opacity: 0.2,
+            scaleY: 1.02,
+            backgroundColor: "rgba(219, 39, 119, 0.08)", // pink-600 with low opacity
+            duration: 4.5 + index * 0.5,
+            ease: "power1.inOut",
+            delay: index * 1
+          })
+          .to(line, {
+            opacity: 0.05,
+            scaleY: 1,
+            backgroundColor: "rgba(0, 0, 0, 0.05)",
+            duration: 4.5 + index * 0.5,
+            ease: "power1.inOut"
+          });
+        }
+      });
+    }
+
+    // Subtle animation for the entire grid with pink tint
+    if (gridRef.current) {
+      gsap.to(gridRef.current, {
+        opacity: 0.4,
+        filter: "hue-rotate(5deg)",
+        duration: 20,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+    }
   }, []);
 
   const firstRow = React.useMemo(
@@ -144,18 +212,85 @@ export default function TrendingMarquee() {
   });
 
   return (
-    <div className="flex w-full h-screen relative justify-center items-center flex-col overflow-hidden">
-      {/* Background Image */}
-      <Image
-        src="/4.png"
-        alt="Background"
-        fill
-        className="object-cover z-0"
-        priority
-      />
+    <div className="flex w-full h-screen relative justify-center items-center flex-col overflow-hidden bg-white">
+      {/* Swiss Style Brutal Grid Background */}
+      <div className="absolute inset-0 z-0">
+        {/* Large brutal grid boxes */}
+        <div 
+          ref={gridRef}
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, rgba(0, 0, 0, 0.08) 2px, transparent 2px),
+              linear-gradient(to bottom, rgba(0, 0, 0, 0.08) 2px, transparent 2px)
+            `,
+            backgroundSize: '200px 200px',
+            opacity: 0.3
+          }}
+        />
+        
+        {/* Medium grid for more structure */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px)
+            `,
+            backgroundSize: '100px 100px'
+          }}
+        />
+
+        {/* GSAP Animated brutal horizontal lines */}
+        <div
+          ref={(el) => { horizontalLinesRef.current[0] = el; }}
+          className="absolute top-[20%] left-0 right-0 h-[2px] bg-black/5"
+          style={{ transformOrigin: "center" }}
+        />
+        <div
+          ref={(el) => { horizontalLinesRef.current[1] = el; }}
+          className="absolute top-[40%] left-0 right-0 h-[2px] bg-black/5"
+          style={{ transformOrigin: "center" }}
+        />
+        <div
+          ref={(el) => { horizontalLinesRef.current[2] = el; }}
+          className="absolute top-[60%] left-0 right-0 h-[2px] bg-black/5"
+          style={{ transformOrigin: "center" }}
+        />
+        <div
+          ref={(el) => { horizontalLinesRef.current[3] = el; }}
+          className="absolute top-[80%] left-0 right-0 h-[2px] bg-black/5"
+          style={{ transformOrigin: "center" }}
+        />
+
+        {/* GSAP Animated brutal vertical lines */}
+        <div
+          ref={(el) => { verticalLinesRef.current[0] = el; }}
+          className="absolute top-0 bottom-0 left-[20%] w-[2px] bg-black/5"
+          style={{ transformOrigin: "center" }}
+        />
+        <div
+          ref={(el) => { verticalLinesRef.current[1] = el; }}
+          className="absolute top-0 bottom-0 left-[40%] w-[2px] bg-black/5"
+          style={{ transformOrigin: "center" }}
+        />
+        <div
+          ref={(el) => { verticalLinesRef.current[2] = el; }}
+          className="absolute top-0 bottom-0 left-[60%] w-[2px] bg-black/5"
+          style={{ transformOrigin: "center" }}
+        />
+        <div
+          ref={(el) => { verticalLinesRef.current[3] = el; }}
+          className="absolute top-0 bottom-0 left-[80%] w-[2px] bg-black/5"
+          style={{ transformOrigin: "center" }}
+        />
+
+        {/* Subtle gradient overlay for depth */}
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-50/20 via-transparent to-gray-50/20" />
+      </div>
 
       {loading ? (
-        <div className="text-white relative z-10">Loading shows...</div>
+        <div className="text-black relative z-10 font-bold">Loading shows...</div>
       ) : (
         <>
           <div

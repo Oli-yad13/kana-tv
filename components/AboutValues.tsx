@@ -1,131 +1,163 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
 
 const values = [
   {
-    title: "Story First",
+    title: "STORY FIRST",
     desc: "We champion local stories that reflect Ethiopia's voice and identity through premium content.",
-    icon: "📖",
-    color: "from-blue-500 to-cyan-500",
+    color: "#3b82f6",
   },
   {
-    title: "Audience Obsession",
+    title: "AUDIENCE OBSESSION",
     desc: "We build programming that entertains, informs, and brings people together across all platforms.",
-    icon: "👥",
-    color: "from-green-500 to-emerald-500",
+    color: "#10b981",
   },
   {
-    title: "Creative Excellence",
+    title: "CREATIVE EXCELLENCE",
     desc: "From dubbing to production, we aim for world-class quality in every frame and every format.",
-    icon: "✨",
-    color: "from-purple-500 to-pink-500",
+    color: "#a855f7",
   },
   {
-    title: "Digital Innovation",
+    title: "DIGITAL INNOVATION",
     desc: "We extend our reach beyond television with massive digital engagement across social platforms.",
-    icon: "🚀",
-    color: "from-orange-500 to-red-500",
+    color: "#f97316",
   },
   {
-    title: "Consistent Delivery",
+    title: "CONSISTENT DELIVERY",
     desc: "Over 30 hours of fresh content weekly with zero repeats, ensuring audiences always have something new.",
-    icon: "⏰",
-    color: "from-yellow-500 to-orange-500",
+    color: "#eab308",
   },
   {
-    title: "Full Spectrum",
+    title: "FULL SPECTRUM",
     desc: "Complete mix of genres spanning dramas, movies, news, business, music, talk, health, and kids content.",
-    icon: "🌈",
-    color: "from-indigo-500 to-purple-500",
+    color: "#ec4899",
   },
 ];
 
+// Individual value card component
+const ValueCard = ({ value, index }: { value: typeof values[0]; index: number }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const card = cardRef.current;
+    const content = contentRef.current;
+
+    if (!card || !content) return;
+
+    const handleMouseEnter = () => {
+      gsap.to(content, {
+        backgroundColor: value.color,
+        color: "#000000",
+        duration: 0.3,
+        ease: "power2.out"
+      });
+      gsap.to(card, {
+        scale: 1.02,
+        duration: 0.3,
+        ease: "power2.out"
+      });
+    };
+
+    const handleMouseLeave = () => {
+      gsap.to(content, {
+        backgroundColor: "#000000",
+        color: "#ffffff",
+        duration: 0.3,
+        ease: "power2.out"
+      });
+      gsap.to(card, {
+        scale: 1,
+        duration: 0.3,
+        ease: "power2.out"
+      });
+    };
+
+    card.addEventListener('mouseenter', handleMouseEnter);
+    card.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      card.removeEventListener('mouseenter', handleMouseEnter);
+      card.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, [value.color]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{
+        duration: 0.6,
+        delay: index * 0.1,
+        ease: "easeOut",
+      }}
+      className="group relative cursor-pointer"
+      ref={cardRef}
+    >
+      <div className="relative h-64 bg-black border-2 border-white overflow-hidden flex flex-col">
+        {/* Title Bar */}
+        <div className="bg-white text-black p-4 flex items-center justify-between flex-shrink-0">
+          <h3 className="text-lg font-bold uppercase tracking-tight">
+            {value.title}
+          </h3>
+          <div className="w-6 h-6 bg-black rounded flex items-center justify-center">
+            <span className="text-white text-sm font-bold">×</span>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div
+          ref={contentRef}
+          className="p-6 flex-1 bg-black text-white"
+        >
+          <p className="text-sm leading-relaxed">
+            {value.desc}
+          </p>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
 export default function AboutValues() {
   return (
-    <section className="px-6 sm:px-10 lg:px-16 py-12">
+    <section className="px-6 sm:px-10 lg:px-16 py-16 bg-black">
       <div>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-6">
-            Our Core Values
+          <div className="flex items-center justify-end mb-8">
+            <div className="flex gap-2">
+              <div className="w-8 h-8 bg-white rounded flex items-center justify-center">
+                <span className="text-black text-sm font-bold">×</span>
+              </div>
+              <div className="w-8 h-8 bg-white rounded flex items-center justify-center">
+                <span className="text-black text-sm font-bold">⌄</span>
+              </div>
+            </div>
+          </div>
+
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 uppercase">
+            OUR CORE VALUES
           </h2>
-          <p className="text-white/80 leading-relaxed max-w-3xl">
-            The principles that guide our mission to deliver exceptional content
-            and create meaningful connections with our audience
+          <p className="text-lg text-white/80 uppercase">
+            The principles that guide our mission
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {values.map((value, i) => (
-            <motion.div
-              key={value.title}
-              initial={{ opacity: 0, y: 30, scale: 0.95 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{
-                duration: 0.6,
-                delay: i * 0.1,
-                ease: "easeOut",
-              }}
-              whileHover={{
-                scale: 1.05,
-                transition: { duration: 0.2 },
-              }}
-              className="group relative"
-            >
-              <div className="relative h-full bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 overflow-hidden">
-                {/* Background Gradient */}
-                <div
-                  className={`absolute inset-0 bg-gradient-to-br ${value.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
-                />
-
-                {/* Content */}
-                <div className="relative z-10">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="text-4xl group-hover:scale-110 transition-transform duration-300">
-                      {value.icon}
-                    </div>
-                    <h3 className="text-2xl font-bold text-white group-hover:text-cyan-400 transition-colors duration-300">
-                      {value.title}
-                    </h3>
-                  </div>
-
-                  <p className="text-white/80 leading-relaxed text-lg">
-                    {value.desc}
-                  </p>
-                </div>
-
-                {/* Hover Effect */}
-                <div className="absolute inset-0 border border-white/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
-            </motion.div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {values.map((value, index) => (
+            <ValueCard key={value.title} value={value} index={index} />
           ))}
         </div>
-
-        {/* Bottom Quote */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-12 text-center"
-        >
-          <div className="max-w-4xl">
-            <blockquote className="text-2xl md:text-3xl font-light text-white/90 italic leading-relaxed">
-              "We are here to{" "}
-              <span className="text-yellow-400 font-bold">entertain</span>. If
-              we make you think, laugh, or feel inspired along the way, even
-              better."
-            </blockquote>
-            <div className="mt-6 w-24 h-1 bg-gradient-to-r from-cyan-400 to-pink-400 rounded-full mx-auto" />
-          </div>
-        </motion.div>
       </div>
     </section>
   );
