@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { cn } from "@/lib/utils";
 import SimpleMarquee from "./simple-marquee";
 import { gsap } from "gsap";
@@ -48,6 +47,7 @@ const shows: Show[] = [
 
 export default function TrendingMarquee() {
   const [loading, setLoading] = useState(true);
+  const [heightOffset, setHeightOffset] = useState("30rem");
   const horizontalLinesRef = useRef<(HTMLDivElement | null)[]>([]);
   const verticalLinesRef = useRef<(HTMLDivElement | null)[]>([]);
   const gridRef = useRef<HTMLDivElement>(null);
@@ -55,27 +55,39 @@ export default function TrendingMarquee() {
   useEffect(() => {
     setLoading(false);
 
+    // Set dynamic height based on screen size
+    const updateHeight = () => {
+      if (window.innerWidth >= 640) {
+        // sm breakpoint in Tailwind
+        setHeightOffset("10rem");
+      } else {
+        setHeightOffset("20rem");
+      }
+    };
+
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+
     // GSAP animations for horizontal lines with pinkish flow
     if (horizontalLinesRef.current.length > 0) {
       horizontalLinesRef.current.forEach((line, index) => {
         if (line) {
           // Create a timeline for smooth color transition
           const tl = gsap.timeline({ repeat: -1 });
-          
+
           tl.to(line, {
             opacity: 0.2,
             scaleX: 1.02,
             backgroundColor: "rgba(236, 72, 153, 0.08)", // pink-500 with low opacity
             duration: 4 + index * 0.5,
             ease: "power1.inOut",
-            delay: index * 0.8
-          })
-          .to(line, {
+            delay: index * 0.8,
+          }).to(line, {
             opacity: 0.05,
             scaleX: 1,
             backgroundColor: "rgba(0, 0, 0, 0.05)",
             duration: 4 + index * 0.5,
-            ease: "power1.inOut"
+            ease: "power1.inOut",
           });
         }
       });
@@ -87,21 +99,20 @@ export default function TrendingMarquee() {
         if (line) {
           // Create a timeline for smooth color transition
           const tl = gsap.timeline({ repeat: -1 });
-          
+
           tl.to(line, {
             opacity: 0.2,
             scaleY: 1.02,
             backgroundColor: "rgba(219, 39, 119, 0.08)", // pink-600 with low opacity
             duration: 4.5 + index * 0.5,
             ease: "power1.inOut",
-            delay: index * 1
-          })
-          .to(line, {
+            delay: index * 1,
+          }).to(line, {
             opacity: 0.05,
             scaleY: 1,
             backgroundColor: "rgba(0, 0, 0, 0.05)",
             duration: 4.5 + index * 0.5,
-            ease: "power1.inOut"
+            ease: "power1.inOut",
           });
         }
       });
@@ -115,9 +126,11 @@ export default function TrendingMarquee() {
         duration: 20,
         repeat: -1,
         yoyo: true,
-        ease: "sine.inOut"
+        ease: "sine.inOut",
       });
     }
+
+    return () => window.removeEventListener("resize", updateHeight);
   }, []);
 
   const firstRow = React.useMemo(
@@ -173,13 +186,13 @@ export default function TrendingMarquee() {
   }) {
     const containerClasses = cn(
       "mx-1 sm:mx-1.5 md:mx-2 cursor-pointer",
-      "h-48 w-48 sm:h-56 sm:w-56 md:h-64 md:w-64 lg:h-72 lg:w-72 xl:h-80 xl:w-80 2xl:h-96 2xl:w-96",
+      "h-64 w-64 sm:h-72 sm:w-72 md:h-80 md:w-80 lg:h-96 lg:w-96 xl:h-[28rem] xl:w-[28rem] ",
       "relative flex shadow-white/20 shadow-md",
       "overflow-hidden flex-col transform-gpu bg-black"
     );
 
     const textContainerClasses = cn(
-      "justify-end p-2 sm:p-2.5 md:p-3 h-full flex items-start flex-col",
+      "justify-end p-3 sm:p-4 md:p-5 lg:p-6 xl:p-8 h-full flex items-start flex-col",
       "leading-tight"
     );
 
@@ -193,10 +206,10 @@ export default function TrendingMarquee() {
         variants={variants}
       >
         <motion.div className={textContainerClasses} variants={textVariants}>
-          <h3 className="text-white text-sm sm:text-base md:text-lg font-medium z-30">
+          <h3 className="text-white text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-medium z-30">
             {show.title}
           </h3>
-          <p className="text-neutral-200 text-xs sm:text-sm md:text-base z-30">
+          <p className="text-neutral-200 text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl z-30">
             {show.genre}
           </p>
         </motion.div>
@@ -212,11 +225,16 @@ export default function TrendingMarquee() {
   });
 
   return (
-    <div className="flex w-full h-screen relative justify-center items-center flex-col overflow-hidden bg-white">
+    <div
+      className="flex w-full relative justify-center items-center flex-col overflow-hidden bg-white"
+      style={{
+        height: `calc(100vh - ${heightOffset})`,
+      }}
+    >
       {/* Swiss Style Brutal Grid Background */}
       <div className="absolute inset-0 z-0">
         {/* Large brutal grid boxes */}
-        <div 
+        <div
           ref={gridRef}
           className="absolute inset-0"
           style={{
@@ -224,73 +242,91 @@ export default function TrendingMarquee() {
               linear-gradient(to right, rgba(0, 0, 0, 0.08) 2px, transparent 2px),
               linear-gradient(to bottom, rgba(0, 0, 0, 0.08) 2px, transparent 2px)
             `,
-            backgroundSize: '200px 200px',
-            opacity: 0.3
+            backgroundSize: "200px 200px",
+            opacity: 0.3,
           }}
         />
-        
+
         {/* Medium grid for more structure */}
-        <div 
+        <div
           className="absolute inset-0"
           style={{
             backgroundImage: `
               linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
               linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px)
             `,
-            backgroundSize: '100px 100px'
+            backgroundSize: "100px 100px",
           }}
         />
 
         {/* GSAP Animated brutal horizontal lines */}
         <div
-          ref={(el) => { horizontalLinesRef.current[0] = el; }}
+          ref={(el) => {
+            horizontalLinesRef.current[0] = el;
+          }}
           className="absolute top-[20%] left-0 right-0 h-[2px] bg-black/5"
           style={{ transformOrigin: "center" }}
         />
         <div
-          ref={(el) => { horizontalLinesRef.current[1] = el; }}
+          ref={(el) => {
+            horizontalLinesRef.current[1] = el;
+          }}
           className="absolute top-[40%] left-0 right-0 h-[2px] bg-black/5"
           style={{ transformOrigin: "center" }}
         />
         <div
-          ref={(el) => { horizontalLinesRef.current[2] = el; }}
+          ref={(el) => {
+            horizontalLinesRef.current[2] = el;
+          }}
           className="absolute top-[60%] left-0 right-0 h-[2px] bg-black/5"
           style={{ transformOrigin: "center" }}
         />
         <div
-          ref={(el) => { horizontalLinesRef.current[3] = el; }}
+          ref={(el) => {
+            horizontalLinesRef.current[3] = el;
+          }}
           className="absolute top-[80%] left-0 right-0 h-[2px] bg-black/5"
           style={{ transformOrigin: "center" }}
         />
 
         {/* GSAP Animated brutal vertical lines */}
         <div
-          ref={(el) => { verticalLinesRef.current[0] = el; }}
+          ref={(el) => {
+            verticalLinesRef.current[0] = el;
+          }}
           className="absolute top-0 bottom-0 left-[20%] w-[2px] bg-black/5"
           style={{ transformOrigin: "center" }}
         />
         <div
-          ref={(el) => { verticalLinesRef.current[1] = el; }}
+          ref={(el) => {
+            verticalLinesRef.current[1] = el;
+          }}
           className="absolute top-0 bottom-0 left-[40%] w-[2px] bg-black/5"
           style={{ transformOrigin: "center" }}
         />
         <div
-          ref={(el) => { verticalLinesRef.current[2] = el; }}
+          ref={(el) => {
+            verticalLinesRef.current[2] = el;
+          }}
           className="absolute top-0 bottom-0 left-[60%] w-[2px] bg-black/5"
           style={{ transformOrigin: "center" }}
         />
         <div
-          ref={(el) => { verticalLinesRef.current[3] = el; }}
+          ref={(el) => {
+            verticalLinesRef.current[3] = el;
+          }}
           className="absolute top-0 bottom-0 left-[80%] w-[2px] bg-black/5"
           style={{ transformOrigin: "center" }}
         />
 
         {/* Subtle gradient overlay for depth */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-50/20 via-transparent to-gray-50/20" />
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-50/20 via-transparent to-gray-50/20 " />
       </div>
 
       {loading ? (
-        <div className="text-black relative z-10 font-bold">Loading shows...</div>
+        <div className="text-black relative z-10 font-bold">
+          Loading shows...
+        </div>
       ) : (
         <>
           <div
