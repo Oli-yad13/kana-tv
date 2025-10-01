@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import emailjs from "@emailjs/browser";
 
 interface ContactPayload {
   name: string;
@@ -29,13 +30,31 @@ export default function ContactForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!payload.name || !payload.email || !payload.message) return;
+
     try {
       setSubmitting(true);
-      // Placeholder: integrate API/email service later
-      await new Promise((r) => setTimeout(r, 800));
-      setSubmitted("ok");
-      setPayload({ name: "", email: "", subject: "", message: "" });
-    } catch {
+
+      // Send email using EmailJS
+      const result = await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID as string,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID as string,
+        {
+          from_name: payload.name,
+          from_email: payload.email,
+          subject: payload.subject || "No subject",
+          message: payload.message,
+        },
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY as string
+      );
+
+      if (result.status === 200) {
+        setSubmitted("ok");
+        setPayload({ name: "", email: "", subject: "", message: "" });
+      } else {
+        setSubmitted("err");
+      }
+    } catch (error) {
+      console.error("EmailJS error:", error);
       setSubmitted("err");
     } finally {
       setSubmitting(false);
