@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
+import { gsap } from "gsap";
 import ShowCard, { type ShowMeta } from "@/components/ShowCard";
 import ShowFilters, { type ShowFiltersState } from "@/components/ShowFilters";
 
@@ -9,6 +10,8 @@ export default function ShowsClient({ shows }: { shows: ShowMeta[] }) {
     category: "All",
     dubbedOnly: false,
   });
+
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   const categories = useMemo(
     () => Array.from(new Set(shows.map((s) => s.genre))),
@@ -24,6 +27,31 @@ export default function ShowsClient({ shows }: { shows: ShowMeta[] }) {
     });
   }, [shows, filters]);
 
+  const featuredShows = useMemo(() => shows.slice(0, 5), [shows]);
+
+  useEffect(() => {
+    if (!carouselRef.current) return;
+
+    const carousel = carouselRef.current;
+    const cardWidth = 320; // w-80 = 320px
+    const gap = 16; // gap-4 = 16px
+    const totalWidth = (cardWidth + gap) * featuredShows.length;
+
+    gsap.to(carousel, {
+      x: -totalWidth,
+      duration: 20,
+      ease: "none",
+      repeat: -1,
+      modifiers: {
+        x: gsap.utils.unitize((x) => parseFloat(x) % totalWidth),
+      },
+    });
+
+    return () => {
+      gsap.killTweensOf(carousel);
+    };
+  }, [featuredShows]);
+
   return (
     <>
       {/* Filters bar */}
@@ -35,30 +63,28 @@ export default function ShowsClient({ shows }: { shows: ShowMeta[] }) {
         />
       </section>
 
-      {/* Featured Dubbed carousel */}
-      <section className="relative px-6 sm:px-10 lg:px-16 py-10">
+      {/* Featured carousel */}
+      <section className="relative py-10 overflow-hidden">
         <div className="absolute inset-0 -z-10 opacity-20">
           <div className="relative w-full h-full">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(168,5,99,0.25),transparent_60%)]" />
           </div>
         </div>
-        <div className="flex items-end justify-between">
+        <div className="px-6 sm:px-10 lg:px-16">
           <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight">
-            Featured Dubbed
+            Featured
           </h2>
-          <span className="text-white/60 text-sm">
-            {shows.filter((s) => s.dubbed).length} titles
-          </span>
         </div>
-        <div
-          className="mt-5 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none]"
-          style={{ WebkitOverflowScrolling: "touch" }}
-        >
-          <div className="flex gap-4 min-w-max pr-2">
-            {shows
-              .filter((s) => s.dubbed)
-              .map((s) => (
-                <div key={s.id} className="w-48 sm:w-56 md:w-64 shrink-0">
+        <div className="mt-5 relative overflow-hidden">
+          <div
+            ref={carouselRef}
+            className="flex gap-4"
+          >
+            {featuredShows
+              .concat(featuredShows)
+              .concat(featuredShows)
+              .map((s, idx) => (
+                <div key={`${s.id}-${idx}`} className="w-80 shrink-0">
                   <ShowCard show={s} />
                 </div>
               ))}
