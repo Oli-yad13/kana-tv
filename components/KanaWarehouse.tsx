@@ -140,7 +140,7 @@ export default function KanaWarehouse() {
         >
           <h3 className="text-2xl font-semibold mb-4">About the Venue</h3>
           <p className="text-white/80 leading-relaxed mb-4">
-            Kana Warehouse is Addis Ababa's most versatile event and concert venue.
+            Kana Warehouse is Addis Ababa&apos;s most versatile event and concert venue.
             The 13-meter-high, column-free hall spans 1,200 square meters indoors,
             with a compact capacity of 2,000 for standing (1,000 for seated).
           </p>

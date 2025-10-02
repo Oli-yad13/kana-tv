@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import ShowCard, { type ShowMeta } from "@/components/ShowCard";
+import ShowCard from "@/components/ShowCard";
 import { showCategories } from "@/lib/showsData";
 
 export default function ShowsByCategory() {

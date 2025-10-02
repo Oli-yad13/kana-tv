@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Header from "@/components/Header";
-import { type ShowMeta } from "@/components/ShowCard";
 import Link from "next/link";
 import { allShows } from "@/lib/showsData";
 import { zareKeKanaSegments } from "@/lib/zareKeKanaSegments";
