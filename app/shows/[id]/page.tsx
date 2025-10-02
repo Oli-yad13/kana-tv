@@ -3,216 +3,8 @@ import Image from "next/image";
 import Header from "@/components/Header";
 import { type ShowMeta } from "@/components/ShowCard";
 import Link from "next/link";
-
-// Static data for demo; replace with real data source later
-const allShows: ShowMeta[] = [
-  // Dubbed Dramas
-  {
-    id: "black-money-love",
-    title: "Black Money Love",
-    cover: "/shows/black-money-love.jpg",
-    genre: "Drama",
-    dubbed: true,
-  },
-  {
-    id: "ashabi-kehf",
-    title: "Aşhabi Kehf",
-    cover: "/shows/ashabi-kehf.jpg",
-    genre: "Drama",
-    dubbed: true,
-  },
-  {
-    id: "brave-woman",
-    title: "Brave Woman",
-    cover: "/shows/brave-woman.jpg",
-    genre: "Drama",
-    dubbed: true,
-  },
-  {
-    id: "hagadires",
-    title: "Hagadireş",
-    cover: "/shows/hagadires.jpg",
-    genre: "Drama",
-    dubbed: true,
-  },
-  {
-    id: "ezel",
-    title: "Ezel",
-    cover: "/29.jpg",
-    genre: "Drama",
-    dubbed: true,
-  },
-  {
-    id: "yewef-gojo",
-    title: "Yewef Gojo",
-    cover: "/yewef gojo.jpg",
-    genre: "Drama",
-    dubbed: true,
-  },
-  {
-    id: "hanim",
-    title: "Hanım",
-    cover: "/yewef gojo.jpg",
-    genre: "Drama",
-    dubbed: true,
-  },
-  {
-    id: "gullizar",
-    title: "Güllizar",
-    cover: "/yewef gojo.jpg",
-    genre: "Drama",
-    dubbed: true,
-  },
-  {
-    id: "zemecha",
-    title: "Zemecha",
-    cover: "/yewef gojo.jpg",
-    genre: "Drama",
-    dubbed: true,
-  },
-  {
-    id: "family-secrets",
-    title: "Family Secrets",
-    cover: "/yewef gojo.jpg",
-    genre: "Drama",
-    dubbed: true,
-  },
-  {
-    id: "yebeteseb-chewata",
-    title: "Yebeteseb Chewata",
-    cover: "/yewef gojo.jpg",
-    genre: "Drama",
-    dubbed: true,
-  },
-  {
-    id: "muhtesem",
-    title: "Muhteşem",
-    cover: "/yewef gojo.jpg",
-    genre: "Drama",
-    dubbed: true,
-  },
-
-  // Original Local Content
-  {
-    id: "lijes",
-    title: "Lijes",
-    cover: "/shows/lijes.jpg",
-    genre: "Drama",
-    dubbed: false,
-  },
-
-  // Movies
-  {
-    id: "kana-cinema",
-    title: "Kana Cinema",
-    cover: "/shows/kana-cinema.jpg",
-    genre: "Movies",
-    dubbed: false,
-  },
-
-  // News, Business & Economics
-  {
-    id: "shaqela",
-    title: "#Shaqela",
-    cover: "/28.jpg",
-    genre: "Business",
-    dubbed: false,
-  },
-  {
-    id: "ceos",
-    title: "CEOs",
-    cover: "/shows/ceos.jpg",
-    genre: "Business",
-    dubbed: false,
-  },
-  {
-    id: "zena-kimsha",
-    title: "Zena Kimsha",
-    cover: "/28.jpg",
-    genre: "News",
-    dubbed: false,
-  },
-
-  // Documentaries
-  {
-    id: "kana-passport",
-    title: "Kana Passport",
-    cover: "/shows/kana-passport.jpg",
-    genre: "Documentary",
-    dubbed: false,
-  },
-  {
-    id: "yetiheb-afta",
-    title: "Yetiheb Afta (Masters at Work)",
-    cover: "/27.jpg",
-    genre: "Documentary",
-    dubbed: false,
-  },
-
-  // Music & Entertainment
-  {
-    id: "kana-jams",
-    title: "KanaJams",
-    cover: "/zare ke kana.jpg",
-    genre: "Music",
-    dubbed: false,
-  },
-  {
-    id: "zeta-max",
-    title: "Zeta Max",
-    cover: "/zare ke kana.jpg",
-    genre: "Entertainment",
-    dubbed: false,
-  },
-  {
-    id: "jamcast",
-    title: "JamCast",
-    cover: "/zare ke kana.jpg",
-    genre: "Music",
-    dubbed: false,
-  },
-  {
-    id: "megenagna",
-    title: "Megenagna",
-    cover: "/28.jpg",
-    genre: "Talk Show",
-    dubbed: false,
-  },
-
-  // Health & Lifestyle
-  {
-    id: "kesira-benuka",
-    title: "Kesira Benuka",
-    cover: "/shows/kesira-benuka.jpg",
-    genre: "Talk Show",
-    dubbed: false,
-  },
-  {
-    id: "hiwote",
-    title: "Hiwote",
-    cover: "/shows/hiwote.jpg",
-    genre: "Health",
-    dubbed: false,
-  },
-
-  // Flagship: Zare Ke Kana
-  {
-    id: "zare-ke-kana",
-    title: "Zare Ke Kana",
-    cover: "/shows/zare-ke-kana.jpg",
-    genre: "Variety",
-    dubbed: false,
-  },
-
-  // Kids Programming
-  {
-    id: "shinshin",
-    title: "Shinshin",
-    cover: "/27.jpg",
-    genre: "Kids",
-    dubbed: false,
-  },
-];
+import { allShows } from "@/lib/showsData";
+import { zareKeKanaSegments } from "@/lib/zareKeKanaSegments";
 
 export function generateStaticParams() {
   return allShows.map((s) => ({ id: s.id }));
@@ -266,7 +58,13 @@ export default async function ShowDetailPage({ params }: { params: Promise<{ id:
   // Rich details for the right-side panel
   const details: Record<
     string,
-    { description: string; year: string; episodes?: number; tags: string[] }
+    {
+      description: string;
+      year: string;
+      episodes?: number;
+      tags: string[];
+      segments?: Array<{ name: string; description: string }>;
+    }
   > = {
     "black-money-love": {
       description:
@@ -421,9 +219,51 @@ export default async function ShowDetailPage({ params }: { params: Promise<{ id:
     },
     "zare-ke-kana": {
       description:
-        "Premium multi-segment 5HR block programming launched June 2025. A complete 5-hour entertainment ecosystem featuring actor reunions, couple cook-offs, business digests, sports analysis, tech highlights, and even true crime. No other Sunday tent-pole program in Ethiopia delivers this much variety, depth, and family appeal in a single block.",
+        "Premium multi-segment 5HR block programming launched June 2025. A complete 5-hour entertainment ecosystem. No other Sunday tent-pole program in Ethiopia delivers this much variety, depth, and family appeal in a single block.",
       year: "2025",
       tags: ["Variety", "Entertainment", "Multi-segment", "Sunday Block", "Family"],
+      segments: [
+        {
+          name: "Qetero / Alex",
+          description: "Film icon Alemayehu Tadesse reunites legends of Ethiopian cinema in surprising, emotional encounters with archives, behind-the-scenes footage, and playful twists.",
+        },
+        {
+          name: "Qeleme / Asres",
+          description: "Comedy legend Asres Bekele makes his long-awaited return to television, guiding a rapid-fire knowledge battle between generations.",
+        },
+        {
+          name: "Yefikir Gebeta / Meski",
+          description: "The brilliant and jovial Meskerem Abera turns the kitchen into a stage for love and comedy. Celebrity couples cook in secret while their partners guess who made what.",
+        },
+        {
+          name: "Manyawkal / Miki",
+          description: "With his insider's eye from years in film and commercials, Mikias Fiseha puts actors and celebrities to the test. Using surprising props and unbelievable stories, he teases out who's bluffing and who's telling the truth.",
+        },
+        {
+          name: "Report - Business / Kal",
+          description: "Kaleab Hailu delivers a sharp monthly review of Ethiopia's economy, breaking down commodity prices, inflation, and policy changes into easy-to-grasp insights.",
+        },
+        {
+          name: "Report - Entertainment / Arsema",
+          description: "Charismatic star Arsema Yayihrad sits down with Ethiopia's entertainers, blending candid stories with glamour.",
+        },
+        {
+          name: "Report - Sports / Faiza",
+          description: "Faiza condenses an entire month of local and international sports into a compelling recap with highlights from the field and sharp commentary.",
+        },
+        {
+          name: "Report - Tech / Joel",
+          description: "Tech voice Joel curates the most important innovations shaping Ethiopia and the world. From Silicon Valley breakthroughs to homegrown startups, Report Tech captures how technology is reshaping everyday life.",
+        },
+        {
+          name: "Sheweda / Betselot",
+          description: "Sheweda takes viewers deep into Ethiopia's most intriguing real-life crime cases. With reconstruction, narration, and context, the segment blends suspense with social commentary.",
+        },
+        {
+          name: "Kana Jams - Segment Breaks",
+          description: "Every break inside Zare Ke Kana is powered by the best of Kana Jams. These live, unedited performances bring raw energy between segments — from legendary artists to fresh new voices.",
+        },
+      ],
     },
     shinshin: {
       description:
@@ -566,6 +406,49 @@ export default async function ShowDetailPage({ params }: { params: Promise<{ id:
           </aside>
         </div>
       </section>
+
+      {/* Segments Section - Only for Zare Ke Kana */}
+      {show.id === "zare-ke-kana" && (
+        <section className="px-6 sm:px-10 lg:px-16 pb-16">
+          <div className="mb-8">
+            <h2 className="text-3xl md:text-4xl font-black tracking-tight mb-3">
+              Show Segments
+            </h2>
+            <p className="text-white/70">
+              A complete 5-hour entertainment ecosystem with 10 unique segments
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {zareKeKanaSegments.map((segment, index) => (
+              <Link
+                key={segment.id}
+                href={`/shows/zare-ke-kana/segments/${segment.id}`}
+                className="group rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 hover:border-pink-700/50 transition-all"
+              >
+                <div className="flex items-start gap-3">
+                  <div className="rounded-full bg-pink-700/20 text-pink-700 w-8 h-8 flex items-center justify-center shrink-0 text-sm font-semibold group-hover:bg-pink-700 group-hover:text-white transition-colors">
+                    {index + 1}
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-semibold mb-1 group-hover:text-pink-700 transition-colors">
+                      {segment.name}
+                    </h3>
+                    <p className="text-white/60 text-xs mb-2">
+                      Host: {segment.host}
+                    </p>
+                    <p className="text-white/70 text-sm leading-relaxed">
+                      {segment.description}
+                    </p>
+                    <div className="mt-3 text-pink-700 text-sm font-medium group-hover:underline">
+                      Learn more →
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
     </main>
   );
 }
