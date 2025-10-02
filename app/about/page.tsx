@@ -4,6 +4,7 @@ import AboutHero from "@/components/AboutHero";
 import ProgrammingPillars from "@/components/ProgrammingPillars";
 import DigitalReach from "@/components/DigitalReach";
 import ContentStats from "@/components/ContentStats";
+import KanaWarehouse from "@/components/KanaWarehouse";
 
 export const metadata: Metadata = {
   title: "About | Kana TV",
@@ -25,6 +26,9 @@ export default function AboutPage() {
 
       {/* Digital Reach */}
       <DigitalReach />
+
+      {/* Kana Warehouse */}
+      <KanaWarehouse />
 
       {/* CTA */}
       <section className="px-6 sm:px-10 lg:px-16 pb-16">
