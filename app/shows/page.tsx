@@ -30,7 +30,7 @@ export default function ShowsPage() {
               Shows
             </h1>
             <p className="mt-3 text-lg text-white/90 max-w-2xl">
-              Ethiopia's full-spectrum TV - Dubbed dramas, original content, news, documentaries, music, and more
+              Ethiopia&apos;s full-spectrum TV - Dubbed dramas, original content, news, documentaries, music, and more
             </p>
           </div>
         </div>
