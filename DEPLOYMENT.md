@@ -12,7 +12,7 @@
 
 ### 2. Configure Environment Variables in Vercel
 
-In your Vercel dashboard, add these environment variables:
+In your Vercel dashboard, go to **Settings** → **Environment Variables** and add:
 
 ```
 NEXT_PUBLIC_SANITY_PROJECT_ID=vya0ywny
@@ -20,21 +20,31 @@ NEXT_PUBLIC_SANITY_DATASET=production
 SANITY_API_TOKEN=sk3swAMmalxPd80yLv84mwqyLl8xX7WfqwfgoZkT77HboiLOORSCBBbUKEHu22Y42kGW2TzGzyB4oVNP8
 ```
 
+**Important**: Set all three for **Production**, **Preview**, and **Development** environments.
+
 ### 3. Update Sanity CORS Origins
 
-After your first deployment, get your Vercel URL (e.g., `https://your-app-name.vercel.app`) and run:
+✅ **COMPLETED** - Your live domain is already configured:
 
 ```bash
-# Add your Vercel URL to CORS origins
-npx sanity cors add https://your-app-name.vercel.app --credentials
-npx sanity cors add https://your-app-name.vercel.app/studio --credentials
+# Your live domain is already added to CORS origins
+https://kana-tv-vclw.vercel.app
 ```
+
+**Current CORS Origins:**
+- `http://localhost:3333`
+- `http://localhost:3002` 
+- `http://100.64.92.8:3002`
+- `https://kana-tv-vclw-nm676zs72-oliyads-projects-8b53e085.vercel.app`
+- `https://kana-tv-vclw.vercel.app` ✅
 
 ### 4. Verify Deployment
 
-- **Blog**: `https://your-app-name.vercel.app/blog`
-- **Studio**: `https://your-app-name.vercel.app/studio`
-- **API Test**: `https://your-app-name.vercel.app/api/sanity`
+Your live URLs:
+- **Home**: `https://kana-tv-vclw.vercel.app/`
+- **Blog**: `https://kana-tv-vclw.vercel.app/blog`
+- **Studio**: `https://kana-tv-vclw.vercel.app/studio`
+- **API Test**: `https://kana-tv-vclw.vercel.app/api/sanity`
 
 ## 🔧 Important Notes
 

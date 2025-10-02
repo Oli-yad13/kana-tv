@@ -10,6 +10,42 @@ export const metadata: Metadata = {
 };
 
 const allShows: ShowMeta[] = [
+  // Dubbed Dramas
+  {
+    id: "black-money-love",
+    title: "Black Money Love",
+    cover: "/shows/black-money-love.jpg",
+    genre: "Drama",
+    dubbed: true,
+  },
+  {
+    id: "ashabi-kehf",
+    title: "Aşhabi Kehf",
+    cover: "/shows/ashabi-kehf.jpg",
+    genre: "Drama",
+    dubbed: true,
+  },
+  {
+    id: "brave-woman",
+    title: "Brave Woman",
+    cover: "/shows/brave-woman.jpg",
+    genre: "Drama",
+    dubbed: true,
+  },
+  {
+    id: "hagadires",
+    title: "Hagadireş",
+    cover: "/shows/hagadires.jpg",
+    genre: "Drama",
+    dubbed: true,
+  },
+  {
+    id: "ezel",
+    title: "Ezel",
+    cover: "/29.jpg",
+    genre: "Drama",
+    dubbed: true,
+  },
   {
     id: "yewef-gojo",
     title: "Yewef Gojo",
@@ -18,17 +54,125 @@ const allShows: ShowMeta[] = [
     dubbed: true,
   },
   {
-    id: "lijes",
-    title: "Lijes",
-    cover: "/lijes.png",
+    id: "hanim",
+    title: "Hanım",
+    cover: "/yewef gojo.jpg",
     genre: "Drama",
     dubbed: true,
   },
   {
-    id: "zare-ke-kana",
-    title: "Zare Ke Kana",
+    id: "gullizar",
+    title: "Güllizar",
+    cover: "/yewef gojo.jpg",
+    genre: "Drama",
+    dubbed: true,
+  },
+  {
+    id: "zemecha",
+    title: "Zemecha",
+    cover: "/yewef gojo.jpg",
+    genre: "Drama",
+    dubbed: true,
+  },
+  {
+    id: "family-secrets",
+    title: "Family Secrets",
+    cover: "/yewef gojo.jpg",
+    genre: "Drama",
+    dubbed: true,
+  },
+  {
+    id: "yebeteseb-chewata",
+    title: "Yebeteseb Chewata",
+    cover: "/yewef gojo.jpg",
+    genre: "Drama",
+    dubbed: true,
+  },
+  {
+    id: "muhtesem",
+    title: "Muhteşem",
+    cover: "/yewef gojo.jpg",
+    genre: "Drama",
+    dubbed: true,
+  },
+
+  // Original Local Content
+  {
+    id: "lijes",
+    title: "Lijes",
+    cover: "/shows/lijes.jpg",
+    genre: "Drama",
+    dubbed: false,
+  },
+
+  // Movies
+  {
+    id: "kana-cinema",
+    title: "Kana Cinema",
+    cover: "/shows/kana-cinema.jpg",
+    genre: "Movies",
+    dubbed: false,
+  },
+
+  // News, Business & Economics
+  {
+    id: "shaqela",
+    title: "#Shaqela",
+    cover: "/28.jpg",
+    genre: "Business",
+    dubbed: false,
+  },
+  {
+    id: "ceos",
+    title: "CEOs",
+    cover: "/shows/ceos.jpg",
+    genre: "Business",
+    dubbed: false,
+  },
+  {
+    id: "zena-kimsha",
+    title: "Zena Kimsha",
+    cover: "/28.jpg",
+    genre: "News",
+    dubbed: false,
+  },
+
+  // Documentaries
+  {
+    id: "kana-passport",
+    title: "Kana Passport",
+    cover: "/shows/kana-passport.jpg",
+    genre: "Documentary",
+    dubbed: false,
+  },
+  {
+    id: "yetiheb-afta",
+    title: "Yetiheb Afta (Masters at Work)",
     cover: "/27.jpg",
-    genre: "Variety",
+    genre: "Documentary",
+    dubbed: false,
+  },
+
+  // Music & Entertainment
+  {
+    id: "kana-jams",
+    title: "KanaJams",
+    cover: "/zare ke kana.jpg",
+    genre: "Music",
+    dubbed: false,
+  },
+  {
+    id: "zeta-max",
+    title: "Zeta Max",
+    cover: "/zare ke kana.jpg",
+    genre: "Entertainment",
+    dubbed: false,
+  },
+  {
+    id: "jamcast",
+    title: "JamCast",
+    cover: "/zare ke kana.jpg",
+    genre: "Music",
     dubbed: false,
   },
   {
@@ -38,12 +182,38 @@ const allShows: ShowMeta[] = [
     genre: "Talk Show",
     dubbed: false,
   },
-  { id: "ezel", title: "Ezel", cover: "/29.jpg", genre: "Drama", dubbed: true },
+
+  // Health & Lifestyle
   {
-    id: "kana-jams",
-    title: "Kana Jams",
-    cover: "/zare ke kana.jpg",
-    genre: "Music",
+    id: "kesira-benuka",
+    title: "Kesira Benuka",
+    cover: "/shows/kesira-benuka.jpg",
+    genre: "Talk Show",
+    dubbed: false,
+  },
+  {
+    id: "hiwote",
+    title: "Hiwote",
+    cover: "/shows/hiwote.jpg",
+    genre: "Health",
+    dubbed: false,
+  },
+
+  // Flagship: Zare Ke Kana
+  {
+    id: "zare-ke-kana",
+    title: "Zare Ke Kana",
+    cover: "/shows/zare-ke-kana.jpg",
+    genre: "Variety",
+    dubbed: false,
+  },
+
+  // Kids Programming
+  {
+    id: "shinshin",
+    title: "Shinshin",
+    cover: "/27.jpg",
+    genre: "Kids",
     dubbed: false,
   },
 ];
